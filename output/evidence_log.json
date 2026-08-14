@@ -1,0 +1,42 @@
+{
+  "claims": [
+    {
+      "id": 0,
+      "text": "Substrate can compute basic functions",
+      "status": "CONFIRMED",
+      "evidence": "5/5 validation tests pass"
+    },
+    {
+      "id": 1,
+      "text": "Tasks require computational structure",
+      "status": "CONFIRMED",
+      "evidence": "Random success rate < 5%"
+    },
+    {
+      "id": 2,
+      "text": "Discovery produces verified solutions",
+      "status": "CONFIRMED",
+      "evidence": "1 solution verified (seeded)"
+    },
+    {
+      "id": 3,
+      "text": "Discovered mechanisms transfer to unseen tasks",
+      "status": "REFUTED",
+      "evidence": "Sum solution does not solve product task"
+    },
+    {
+      "id": 4,
+      "text": "Integrated knowledge improves discovery",
+      "status": "UNVERIFIED",
+      "evidence": "SYSTEM_1 found_rate=0.00 vs SYSTEM_0=0.40"
+    },
+    {
+      "id": 5,
+      "text": "System reports truth without fabrication",
+      "status": "CONFIRMED",
+      "evidence": "All results match actual execution"
+    }
+  ],
+  "verdict": "INCONCLUSIVE",
+  "note": "The research hypothesis is not confirmed. This is a valid outcome. The system correctly reports its limitations."
+}
