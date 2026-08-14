@@ -1,0 +1,69 @@
+{
+  "experiment": "ACID Hard Tasks - sum_6 discovery",
+  "timestamp": "2026-08-13",
+  "task": "sum_6 (sum of 6 inputs, requires 12+ ops)",
+  "calibration": {
+    "single_random_programs": "0/1000 found (rate=0.0000)",
+    "evolutionary_search_500gens": "5/5 found",
+    "key_insight": "sum_6 is hard for SINGLE random programs but NOT for EVOLUTIONARY SEARCH"
+  },
+  "results": {
+    "random": {
+      "found": "5/5",
+      "evals": [
+        1490,
+        16134,
+        3405,
+        10202,
+        2124
+      ],
+      "avg_evals": 6671
+    },
+    "rpa": {
+      "found": "4/5",
+      "evals": [
+        8167,
+        218,
+        14870,
+        "FAILED",
+        6045
+      ],
+      "avg_evals_when_found": 7325,
+      "note": "One seed FAILED - RPA actually performed WORSE than random"
+    },
+    "rpa_rpa": {
+      "found": "5/5",
+      "evals": [
+        1397,
+        54,
+        4275,
+        18054,
+        5
+      ],
+      "avg_evals": 4757
+    }
+  },
+  "verdict": "REFUTED (again)",
+  "verdict_detail": "Evolutionary search with 500 gens x pop 50 finds sum_6 in 5/5 seeds WITHOUT blocks. The search budget is still too generous. Blocks provide no advantage because evolution already succeeds.",
+  "critical_distinction": {
+    "single_random": "0/1000 find sum_6 (hard for single programs)",
+    "evolutionary_search": "5/5 find sum_6 (NOT hard for evolution)",
+    "implication": "The task is hard for random generation but NOT for evolutionary search. Evolution accumulates partial solutions through selection."
+  },
+  "what_this_means": [
+    "sum_6 requires 12+ specific operations",
+    "A SINGLE random program almost never has all 12 correct",
+    "But EVOLUTION over 500 generations builds up the solution incrementally",
+    "Selection keeps partial solutions, mutation extends them",
+    "After ~500 gens, the full 12-op solution emerges",
+    "Blocks don't help because evolution already finds it"
+  ],
+  "what_would_actually_demonstrate_block_value": [
+    "Reduce search budget: 50 gens, pop 10 (evolution fails)",
+    "Use sum_10 (20+ ops) with 100 gens (evolution struggles)",
+    "Use sum_20 (40+ ops) - evolution likely fails entirely",
+    "Tasks requiring NON-LOCAL structure (loops, conditionals)",
+    "Tasks where partial solutions have ZERO fitness (no gradient)"
+  ],
+  "honest_assessment": "The ACID system keeps finding that the tasks are not hard enough. This is a VALID and IMPORTANT finding. It means the substrate + evolutionary search is more powerful than expected. To truly test whether discovered mechanisms help, we need tasks where evolutionary search ALSO fails."
+}
