@@ -5,7 +5,7 @@ A system that discovers, verifies, distills, and transfers
 computational mechanisms through evolutionary search.
 """
 
-__version__ = "9.0.0"
+__version__ = "10.0.0"
 
 from acid.substrate import Program, Executor, PRIMITIVES
 from acid.search import DiscoveryEngine, random_program, mutate_program
@@ -29,6 +29,9 @@ from acid.deploy import DeploymentPipeline, ComponentRegistry
 from acid.advanced_tasks import ADVANCED_TASKS, get_advanced_tasks_by_difficulty
 from acid.dashboard import Dashboard, generate_dashboard_html
 from acid.plugins import Plugin, PluginRegistry, LoggingPlugin, MetricsPlugin, create_default_registry
+from acid.security import RateLimiter, AuditTrail, Authenticator, Authorizer, SecurityManager
+from acid.config import Config, config, DEFAULT_CONFIG
+from acid.utils import compute_hash, format_duration, format_number, retry, validate_inputs
 
 __all__ = [
     "Program", "Executor", "PRIMITIVES",
@@ -53,4 +56,7 @@ __all__ = [
     "ADVANCED_TASKS", "get_advanced_tasks_by_difficulty",
     "Dashboard", "generate_dashboard_html",
     "Plugin", "PluginRegistry", "LoggingPlugin", "MetricsPlugin", "create_default_registry",
+    "RateLimiter", "AuditTrail", "Authenticator", "Authorizer", "SecurityManager",
+    "Config", "config", "DEFAULT_CONFIG",
+    "compute_hash", "format_duration", "format_number", "retry", "validate_inputs",
 ]
