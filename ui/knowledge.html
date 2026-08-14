@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACID Knowledge Base</title>
+<style>
+:root{--bg:#0B0E14;--surface:#141926;--border:#273143;--tx:#E8ECF4;--tx2:#9AA4B8;--ac:#6E8EF2;--ok:#3ECF8E}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,"Helvetica Neue",sans-serif;padding:20px}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+h1{font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px}
+.card h3{font-size:12px;color:var(--tx2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.card .value{font-size:24px;font-family:"JetBrains Mono",monospace;color:var(--ac)}
+.artifact{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px}
+.artifact .hash{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ac)}
+.artifact .task{font-size:13px;margin:4px 0}
+.artifact .meta{font-size:11px;color:var(--tx2)}
+.btn{background:var(--ac);color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:12px}
+.btn-secondary{background:var(--surface);color:var(--tx2);border:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>ACID Knowledge Base</h1>
+<div>
+<button class="btn btn-secondary" onclick="location.href='/'">Back to ACID</button>
+</div>
+</div>
+
+<div class="grid">
+<div class="card"><h3>Total Artifacts</h3><div class="value" id="totalArt">0</div></div>
+<div class="card"><h3>Versions</h3><div class="value" id="totalVer">0</div></div>
+<div class="card"><h3>Transfers</h3><div class="value" id="totalTrans">0</div></div>
+<div class="card"><h3>Avg Evals</h3><div class="value" id="avgEvals">0</div></div>
+</div>
+
+<h2 style="font-size:16px;margin-bottom:12px">Artifacts</h2>
+<div id="artifacts">
+<p style="color:var(--tx2)">Loading artifacts...</p>
+</div>
+
+<script>
+async function loadArtifacts() {
+  try {
+    var resp = await fetch('/api/knowledge');
+    var data = await resp.json();
+    document.getElementById('totalArt').textContent = data.count || 0;
+    
+    var container = document.getElementById('artifacts');
+    if (data.artifacts && data.artifacts.length > 0) {
+      container.innerHTML = data.artifacts.map(function(art) {
+        return '<div class="artifact">' +
+          '<div class="hash">' + art.hash + '</div>' +
+          '<div class="task">' + (art.task || 'Unknown task') + '</div>' +
+          '<div class="meta">Evals: ' + (art.evals || 0) + ' | Gen: ' + (art.gen || 0) + ' | Version: ' + (art.version || 1) + '</div>' +
+          '</div>';
+      }).join('');
+    } else {
+      container.innerHTML = '<p style="color:var(--tx2)">No artifacts yet. Solve a problem to create one.</p>';
+    }
+  } catch(e) {
+    document.getElementById('artifacts').innerHTML = '<p style="color:var(--tx2)">Could not load artifacts.</p>';
+  }
+}
+
+loadArtifacts();
+</script>
+
+</body>
+</html>
