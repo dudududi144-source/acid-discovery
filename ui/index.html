@@ -326,5 +326,72 @@
     }
   </script>
 
+
+  <script>
+    var API_BASE = "https://acid-api.rabotatony.workers.dev";
+    
+    // Fetch system status on load
+    async function fetchStatus() {
+      try {
+        var resp = await fetch(API_BASE + "/api/status");
+        var data = await resp.json();
+        document.getElementById('kbCount').textContent = data.kb_size || 0;
+        document.getElementById('solveCount').textContent = data.solves || 0;
+        document.getElementById('rateVal').textContent = data.success_rate || '0%';
+        document.getElementById('avgTime').textContent = data.avg_time || '0s';
+      } catch(e) {
+        console.log('API not reachable:', e);
+      }
+    }
+    
+    // Submit solve request
+    async function submitSolve(problem) {
+      try {
+        var resp = await fetch(API_BASE + "/api/solve", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({problem: problem, type: "arithmetic"})
+        });
+        var data = await resp.json();
+        return data;
+      } catch(e) {
+        console.log('Solve error:', e);
+        return null;
+      }
+    }
+    
+    // Store artifact in knowledge base
+    async function storeArtifact(artifact) {
+      try {
+        var resp = await fetch(API_BASE + "/api/knowledge", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(artifact)
+        });
+        var data = await resp.json();
+        return data;
+      } catch(e) {
+        console.log('Store error:', e);
+        return null;
+      }
+    }
+    
+    // Fetch analytics
+    async function fetchAnalytics() {
+      try {
+        var resp = await fetch(API_BASE + "/api/analytics");
+        var data = await resp.json();
+        return data;
+      } catch(e) {
+        console.log('Analytics error:', e);
+        return null;
+      }
+    }
+    
+    // Initialize on load
+    fetchStatus();
+    setInterval(fetchStatus, 30000); // Refresh every 30s
+  </script>
+
 </body>
 </html>
