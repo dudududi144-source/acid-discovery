@@ -5,7 +5,7 @@ A system that discovers, verifies, distills, and transfers
 computational mechanisms through evolutionary search.
 """
 
-__version__ = "6.0.0"
+__version__ = "7.0.0"
 
 from acid.substrate import Program, Executor, PRIMITIVES
 from acid.search import DiscoveryEngine, random_program, mutate_program
@@ -23,6 +23,8 @@ from acid.task_library import TASKS, get_tasks_by_category, get_tasks_by_difficu
 from acid.kg_viz import generate_svg, generate_text_report, generate_mermaid
 from acid.client import ACIDClient, quick_solve, quick_status
 from acid.batch import BatchRunner, ParallelRunner
+from acid.testing import TestSuite, TestResult, run_all_tests
+from acid.collaboration import CollaborationSpace, ArtifactMarketplace
 
 __all__ = [
     "Program", "Executor", "PRIMITIVES",
@@ -41,4 +43,6 @@ __all__ = [
     "generate_svg", "generate_text_report", "generate_mermaid",
     "ACIDClient", "quick_solve", "quick_status",
     "BatchRunner", "ParallelRunner",
+    "TestSuite", "TestResult", "run_all_tests",
+    "CollaborationSpace", "ArtifactMarketplace",
 ]
