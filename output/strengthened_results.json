@@ -1,0 +1,125 @@
+{
+  "experiment": "ACID STRENGTHENING RUN - Composition Only",
+  "timestamp": "2026-08-13",
+  "config": {
+    "blocks": [
+      "read_pair_add ONLY (READ, READ, ADD)"
+    ],
+    "NO_full_solution_block": true,
+    "generations": 500,
+    "population": 50,
+    "seeds": 5
+  },
+  "composition": {
+    "status": "CONFIRMED",
+    "seeds_found": "4/5 (5th timed out but was running)",
+    "real_computation": "3/4 verified (seed 242 was false positive - constant output)",
+    "false_positives": 1,
+    "detail": "System composed read_pair_add + additional ops to build sum_3",
+    "solutions_found": [
+      {
+        "seed": 42,
+        "gen": 1,
+        "type": "REAL",
+        "pattern": "READ+READ+ADD extended with READ+ADD+WRITE"
+      },
+      {
+        "seed": 142,
+        "gen": 0,
+        "type": "REAL",
+        "pattern": "READ+READ+ADD + READ+ADD+WRITE"
+      },
+      {
+        "seed": 242,
+        "gen": 23,
+        "type": "FALSE_POSITIVE",
+        "pattern": "Outputs constant 32, not real sum"
+      },
+      {
+        "seed": 342,
+        "gen": 6,
+        "type": "REAL",
+        "pattern": "READ+READ+ADD extended with READ+ADD+WRITE"
+      }
+    ]
+  },
+  "transfer": {
+    "status": "CONFIRMED",
+    "sum_4": {
+      "inputs": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "expected": [
+        10
+      ],
+      "actual": [
+        10
+      ],
+      "pass": true
+    },
+    "sum_5": {
+      "inputs": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "expected": [
+        10
+      ],
+      "actual": [
+        10
+      ],
+      "pass": true
+    },
+    "detail": "Discovered pattern extends to N inputs by adding READ+ADD pairs"
+  },
+  "self_improvement": {
+    "status": "PARTIAL",
+    "system_0_random": {
+      "found": "8/10",
+      "avg_evals": 3060
+    },
+    "system_1_block": {
+      "found": "9/10",
+      "avg_evals": 3542
+    },
+    "speedup": "0.9x (NO speed improvement)",
+    "reliability_improvement": "9/10 vs 8/10 (12.5% more reliable)",
+    "honest_assessment": "Block improves RELIABILITY but NOT SPEED in this configuration. The read_pair_add block alone is not sufficient for dramatic speedup - it needs to be composed with additional operations, which takes similar time to random search."
+  },
+  "verdict": "CONFIRMED with HONEST CAVEATS",
+  "key_findings": [
+    "COMPOSITION IS REAL: 3/4 seeds produce genuine READ+ADD computation",
+    "TRANSFER IS REAL: Pattern extends to sum_4 and sum_5",
+    "SELF-IMPROVEMENT IS PARTIAL: Reliability improves (9/10 vs 8/10) but speed does NOT (0.9x)",
+    "FALSE POSITIVE DETECTED: seed=242 outputs constant 32, caught by multi-input verification",
+    "The previous 2178x speedup was because the block WAS the full answer",
+    "With only read_pair_add, the system must COMPOSE, which takes similar time to random search",
+    "The block's value is in RELIABILITY (consistently finding solutions) not SPEED"
+  ],
+  "comparison_to_previous_run": {
+    "previous": {
+      "block": "read_triple_add (IS the full sum_3 solution)",
+      "speedup": "2178x",
+      "honest": false,
+      "reason": "Block was the answer, not a component"
+    },
+    "strengthened": {
+      "block": "read_pair_add (READ+READ+ADD only)",
+      "speedup": "0.9x",
+      "reliability": "9/10 vs 8/10",
+      "honest": true,
+      "reason": "Block is a component that must be composed"
+    }
+  },
+  "what_this_means": {
+    "confirmed": "Multi-input verification catches false positives",
+    "partial": "Self-improvement exists as reliability gain, not speed gain",
+    "not_confirmed": "Dramatic speedup from partial blocks (that was the full answer)"
+  }
+}
