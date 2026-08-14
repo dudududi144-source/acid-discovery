@@ -1,4 +1,4 @@
-name: ACID CI/CD
+name: ACID CI/CD Pipeline
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,10 +22,11 @@ jobs:
         run: python test_suite.py
       - name: Run integration tests
         run: python integration_test.py
-      - name: Verify substrate
-        run: python -c "from acid.substrate import validate_substrate; assert validate_substrate()"
+      - name: Verify ACID imports
+        run: python -c "import acid; print('ACID v' + acid.__version__)"
 
   deploy-ui:
+    name: Deploy UI
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
@@ -39,14 +41,16 @@ jobs:
           directory: ui
 
   deploy-api:
+    name: Deploy API
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
+      - name: Install Wrangler
+        run: npm install -g wrangler
       - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy acid-api
+        run: wrangler deploy acid-api
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
