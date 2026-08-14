@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACID Documentation</title>
+<style>
+:root{--bg:#0B0E14;--surface:#141926;--border:#273143;--tx:#E8ECF4;--tx2:#9AA4B8;--ac:#6E8EF2}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,"Helvetica Neue",sans-serif;line-height:1.6}
+.container{max-width:900px;margin:0 auto;padding:40px 20px}
+h1{font-size:28px;margin-bottom:8px}
+h2{font-size:20px;margin:32px 0 12px;color:var(--ac)}
+h3{font-size:16px;margin:20px 0 8px}
+p{margin:8px 0;color:var(--tx2)}
+code{background:var(--surface);padding:2px 6px;border-radius:3px;font-family:"JetBrains Mono",monospace;font-size:13px}
+pre{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px;overflow-x:auto;margin:12px 0}
+pre code{background:none;padding:0}
+.nav{display:flex;gap:20px;margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.nav a{color:var(--tx2);text-decoration:none;font-size:14px}
+.nav a:hover{color:var(--ac)}
+.badge{display:inline-block;background:var(--surface);border:1px solid var(--border);padding:4px 10px;border-radius:4px;font-size:12px;margin:2px}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th,td{padding:8px 12px;border:1px solid var(--border);text-align:left;font-size:13px}
+th{background:var(--surface)}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>ACID Documentation</h1>
+<p>Autonomous Computational Intelligence Discovery</p>
+
+<div class="nav">
+<a href="#overview">Overview</a>
+<a href="#architecture">Architecture</a>
+<a href="#api">API</a>
+<a href="#usage">Usage</a>
+<a href="#modules">Modules</a>
+</div>
+
+<h2 id="overview">Overview</h2>
+<p>ACID is a system that discovers, verifies, distills, and transfers computational mechanisms through evolutionary search on a minimal substrate.</p>
+
+<div>
+<span class="badge">18 Primitives</span>
+<span class="badge">5 Verification Tests</span>
+<span class="badge">21 Tasks</span>
+<span class="badge">23 Modules</span>
+<span class="badge">Multi-User</span>
+<span class="badge">SSE Streaming</span>
+</div>
+
+<h2 id="architecture">Architecture</h2>
+<pre><code>UI (Pages) -> API Worker (Discovery) -> Knowledge Base
+                    |
+                    v
+             Substrate Executor (18 prims)
+                    |
+                    v
+             Verification Pipeline (5 tests)
+                    |
+                    v
+             Distillation Pipeline
+                    |
+                    v
+             Transfer Engine</code></pre>
+
+<h2 id="api">API Endpoints</h2>
+<table>
+<tr><th>Endpoint</th><th>Method</th><th>Description</th></tr>
+<tr><td>/api/status</td><td>GET</td><td>System health + metrics</td></tr>
+<tr><td>/api/solve</td><td>POST</td><td>Submit problem for discovery</td></tr>
+<tr><td>/api/stream</td><td>GET</td><td>SSE real-time stream</td></tr>
+<tr><td>/api/knowledge</td><td>GET</td><td>List artifacts</td></tr>
+<tr><td>/api/knowledge</td><td>POST</td><td>Store artifact</td></tr>
+<tr><td>/api/knowledge/:hash</td><td>GET</td><td>Get artifact + versions</td></tr>
+<tr><td>/api/analytics</td><td>GET</td><td>Metrics + history</td></tr>
+<tr><td>/api/transfer</td><td>POST</td><td>Run transfer test</td></tr>
+<tr><td>/api/user/register</td><td>POST</td><td>Register user</td></tr>
+<tr><td>/api/user/login</td><td>POST</td><td>Login user</td></tr>
+</table>
+
+<h2 id="usage">Usage</h2>
+<h3>Python Client</h3>
+<pre><code>from acid import ACIDClient
+
+client = ACIDClient()
+result = client.solve(
+    problem="Sum of 3 integers",
+    inputs=[1, 2, 3],
+    expected=[6]
+)
+print(result)</code></pre>
+
+<h3>Batch Processing</h3>
+<pre><code>from acid import BatchRunner
+
+runner = BatchRunner()
+results = runner.run_task_library(max_difficulty=3)
+print(runner.get_summary())</code></pre>
+
+<h3>Run Tests</h3>
+<pre><code>from acid import run_all_tests
+
+results = run_all_tests()</code></pre>
+
+<h2 id="modules">Modules</h2>
+<table>
+<tr><th>Module</th><th>Description</th></tr>
+<tr><td>substrate</td><td>Minimal computational substrate (18 primitives)</td></tr>
+<tr><td>search</td><td>Evolutionary discovery engine</td></tr>
+<tr><td>verifier</td><td>Independent verification (5 test types)</td></tr>
+<tr><td>distiller</td><td>Knowledge distillation</td></tr>
+<tr><td>transfer</td><td>Transfer engine</td></tr>
+<tr><td>knowledge_graph</td><td>Artifact relationships</td></tr>
+<tr><td>experiment</td><td>Experiment framework</td></tr>
+<tr><td>feedback</td><td>Feedback loop</td></tr>
+<tr><td>monitor</td><td>Monitoring + alerting</td></tr>
+<tr><td>client</td><td>Python API client</td></tr>
+<tr><td>batch</td><td>Batch + parallel runner</td></tr>
+<tr><td>testing</td><td>Test framework</td></tr>
+<tr><td>collaboration</td><td>Multi-user spaces + marketplace</td></tr>
+<tr><td>deploy</td><td>Deployment pipeline</td></tr>
+<tr><td>dashboard</td><td>Real-time dashboard</td></tr>
+</table>
+
+<h2>Principles</h2>
+<p>1. Truth > Appearance</p>
+<p>2. Evidence > Claim</p>
+<p>3. Execution > Explanation</p>
+<p>4. Correct Failure > Fabricated Success</p>
+<p>5. Composition > Addition</p>
+<p>6. Verification > Trust</p>
+<p>7. Distillation > Storage</p>
+<p>8. Transfer > Specialization</p>
+
+</div>
+</body>
+</html>
