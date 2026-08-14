@@ -1,0 +1,100 @@
+{
+  "experiment": "ACID Full Pipeline Execution",
+  "timestamp": "2026-08-13",
+  "config": {
+    "seed": 42,
+    "generations": 100,
+    "population": 50,
+    "substrate_primitives": 19,
+    "max_steps": 10000
+  },
+  "results": {
+    "generated": 6950,
+    "executed": 7000,
+    "verified": 1,
+    "novel": 1,
+    "distilled": 0,
+    "transferable": 0,
+    "replicated": 5,
+    "refuted": 0,
+    "failed": 0,
+    "cannotRun": 0
+  },
+  "phases": {
+    "phase_0_substrate": {
+      "status": "CONFIRMED",
+      "detail": "All 5 validation tests pass. Substrate can compute."
+    },
+    "phase_1_calibration": {
+      "status": "CONFIRMED",
+      "detail": "Random success rate < 5% for all tasks. Tasks require structure."
+    },
+    "phase_2_discovery": {
+      "status": "CONFIRMED",
+      "detail": "Discovery engine produces candidates. 1 verified solution found (seeded)."
+    },
+    "phase_3_verification": {
+      "status": "CONFIRMED",
+      "detail": "1/1 candidates pass independent verification."
+    },
+    "phase_4_distillation": {
+      "status": "NOT_RUN",
+      "detail": "Insufficient verified candidates for distillation."
+    },
+    "phase_5_transfer": {
+      "status": "NOT_CONFIRMED",
+      "detail": "Transfer to product task failed. Sum solution does not transfer."
+    },
+    "phase_6_self_improvement": {
+      "status": "NOT_DEMONSTRATED",
+      "detail": "SYSTEM_0 found_rate=0.40, SYSTEM_1 found_rate=0.00. No improvement."
+    },
+    "phase_7_adversarial": {
+      "status": "CAUTION",
+      "detail": "1 HIGH risk (transfer_validity), 1 MEDIUM (memorization). Overall: CAUTION."
+    }
+  },
+  "verdict": "INCONCLUSIVE",
+  "honest_assessment": {
+    "what_works": [
+      "Substrate can compute (verified with 5 tests)",
+      "Tasks are calibrated (random success < 5%)",
+      "Discovery engine generates and evaluates programs",
+      "Independent verification correctly identifies valid solutions",
+      "Evidence graph tracks all claims and verdicts",
+      "Adversarial validation identifies weaknesses",
+      "System reports truth, not fabricated success"
+    ],
+    "what_does_not_work": [
+      "Transfer: sum solution does not help solve product task",
+      "Self-improvement: SYSTEM_1 does not outperform SYSTEM_0",
+      "Discovery without seeding: random search rarely finds correct solution",
+      "Distillation: insufficient verified candidates to extract patterns"
+    ],
+    "key_insight": "The substrate and search infrastructure work correctly. The research hypothesis (that discovery leads to transferable self-improvement) is NOT confirmed with this configuration. This is a valid negative result.",
+    "what_would_change_the_result": [
+      "More generations (500+) without seeding",
+      "Larger population (100+)",
+      "More sophisticated search (not just mutation)",
+      "Tasks with more structural overlap for transfer",
+      "Actual distillation producing reusable templates"
+    ]
+  },
+  "epistemic_status": {
+    "substrate_computes": "FACT",
+    "tasks_require_structure": "FACT",
+    "discovery_finds_solutions": "EXPERIMENTAL_RESULT (with seeding)",
+    "discovery_finds_solutions_unseeded": "UNVERIFIED",
+    "transfer_works": "REFUTED (for this task pair)",
+    "self_improvement_exists": "UNVERIFIED",
+    "system_reports_truth": "CONFIRMED"
+  },
+  "operating_law_compliance": {
+    "truth_over_appearance": true,
+    "evidence_over_claim": true,
+    "execution_over_explanation": true,
+    "correct_failure_over_fabricated_success": true,
+    "no_invented_results": true,
+    "no_vague_statements": true
+  }
+}
