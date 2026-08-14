@@ -5,7 +5,7 @@ A system that discovers, verifies, distills, and transfers
 computational mechanisms through evolutionary search.
 """
 
-__version__ = "8.0.0"
+__version__ = "9.0.0"
 
 from acid.substrate import Program, Executor, PRIMITIVES
 from acid.search import DiscoveryEngine, random_program, mutate_program
@@ -28,6 +28,7 @@ from acid.collaboration import CollaborationSpace, ArtifactMarketplace
 from acid.deploy import DeploymentPipeline, ComponentRegistry
 from acid.advanced_tasks import ADVANCED_TASKS, get_advanced_tasks_by_difficulty
 from acid.dashboard import Dashboard, generate_dashboard_html
+from acid.plugins import Plugin, PluginRegistry, LoggingPlugin, MetricsPlugin, create_default_registry
 
 __all__ = [
     "Program", "Executor", "PRIMITIVES",
@@ -51,4 +52,5 @@ __all__ = [
     "DeploymentPipeline", "ComponentRegistry",
     "ADVANCED_TASKS", "get_advanced_tasks_by_difficulty",
     "Dashboard", "generate_dashboard_html",
+    "Plugin", "PluginRegistry", "LoggingPlugin", "MetricsPlugin", "create_default_registry",
 ]
