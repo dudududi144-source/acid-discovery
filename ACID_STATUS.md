@@ -1,49 +1,48 @@
-# ACID STATUS - STATISTICAL COMPARISON COMPLETE
+# ACID STATUS - HARD TASK ANALYSIS
 
-## Verdict: REFUTED (for sum_3)
+## Latest Verdict: REFUTED (sum_6 also too easy for evolution)
 
-Blocks do NOT improve discovery for sum_3.
-Random search finds sum_3 in 10/10 seeds.
-The task is too easy for blocks to matter.
+## The Critical Finding
 
-## Exact Numbers
+sum_6 is HARD for single random programs (0/1000).
+sum_6 is EASY for evolutionary search (5/5 in 500 gens).
 
-| Config | Found | Avg Evals | Std Dev | Speedup |
-|--------|-------|-----------|---------|----------|
-| Random | 10/10 | 2,697 | 3,148 | baseline |
-| RPA | 10/10 | 3,260 | 3,204 | 0.83x (SLOWER) |
-| RPA+WO | 10/10 | 2,554 | 3,630 | 1.06x (marginal) |
+Evolutionary search accumulates partial solutions through selection.
+After 500 generations, the full 12-op solution emerges.
+Blocks provide no advantage because evolution already succeeds.
 
-## Why This Is The Truth
+## Results
 
-1. sum_3 requires: READ+READ+ADD+READ+ADD+WRITE+HALT (7 ops)
-2. With 500 gens x pop 50 = 25,000 evaluations per seed
-3. Random mutation hits this 7-op pattern reliably
-4. Blocks add structure but the search budget is already sufficient
-5. Therefore: blocks provide no advantage for this task
+| Config | Found | Avg Evals | Note |
+|--------|-------|-----------|------|
+| Random | 5/5 | 6,671 | Evolution finds it |
+| RPA | 4/5 | 7,325 | WORSE than random |
+| RPA+RPA | 5/5 | 4,757 | Similar to random |
 
-## What This Means
+## The Real Question
 
-The ACID system correctly reports a NEGATIVE result.
-This is the system working as designed.
-Truth > Appearance. Evidence > Claim.
+To demonstrate block value, we need tasks where:
+1. Single random programs fail (0/1000) - ACHIEVED
+2. Evolutionary search ALSO fails - NOT YET ACHIEVED
 
-## What Would Change The Result
+sum_6 satisfies (1) but not (2).
+Evolution with 500 gens still finds it.
 
-To demonstrate block value, need:
-1. Harder tasks (sum_10, sum_20, nested patterns)
-2. Reduced search budget (50 gens, pop 10)
-3. Tasks requiring 20+ specific instructions
-4. Tasks where random search FAILS
+## Next Steps
+
+Option A: Reduce search budget (50 gens, pop 10)
+Option B: Use sum_10 or sum_20 (20-40+ ops)
+Option C: Tasks with no fitness gradient (all-or-nothing)
+Option D: Accept that evolution is powerful and blocks help only at extreme difficulty
 
 ## Cumulative ACID Findings
 
-| Claim | Status | Evidence |
-|-------|--------|----------|
-| Substrate computes | CONFIRMED | 6/6 tests pass |
-| Tasks require structure | CONFIRMED | random < 5% (calibrated) |
-| Composition works | CONFIRMED | 3/4 seeds compose |
-| Transfer works | CONFIRMED | sum_4 + sum_5 pass |
-| Blocks speed up easy tasks | REFUTED | 0.83x-1.06x, no advantage |
-| Self-improvement (easy tasks) | REFUTED | No speed gain |
-| Self-improvement (hard tasks) | UNTESTED | Need harder tasks |
+| Claim | Status |
+|-------|--------|
+| Substrate computes | CONFIRMED |
+| Composition works | CONFIRMED |
+| Transfer works | CONFIRMED |
+| Blocks help easy tasks | REFUTED |
+| Blocks help medium tasks | REFUTED |
+| Blocks help hard tasks (evolution fails) | UNTESTED |
+| Evolution is more powerful than expected | CONFIRMED |
