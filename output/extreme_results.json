@@ -1,0 +1,154 @@
+{
+  "experiment": "ACID EXTREME - Option A: Reduced budget (50 gens, pop 10)",
+  "timestamp": "2026-08-13",
+  "task": "sum_6 (sum of 6 inputs)",
+  "config": {
+    "generations": 50,
+    "population": 10,
+    "seeds": 10
+  },
+  "results": {
+    "random": {
+      "found": "1/10",
+      "avg_evals_when_found": 234,
+      "individual": [
+        {
+          "seed": 1,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 2,
+          "found": true,
+          "evals": 234
+        },
+        {
+          "seed": 3,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 4,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 5,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 6,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 7,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 8,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 9,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 10,
+          "found": false,
+          "evals": 500
+        }
+      ]
+    },
+    "rpa": {
+      "found": "0/10",
+      "note": "One block does NOT help. 0/10 found.",
+      "individual_found": 0
+    },
+    "rpa_rpa": {
+      "found": "4/10",
+      "avg_evals_when_found": 316,
+      "note": "TWO blocks together DO help. 4/10 found vs 1/10 random.",
+      "individual": [
+        {
+          "seed": 1,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 2,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 3,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 4,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 5,
+          "found": true,
+          "evals": 412
+        },
+        {
+          "seed": 6,
+          "found": true,
+          "evals": 440
+        },
+        {
+          "seed": 7,
+          "found": true,
+          "evals": 2
+        },
+        {
+          "seed": 8,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 9,
+          "found": false,
+          "evals": 500
+        },
+        {
+          "seed": 10,
+          "found": true,
+          "evals": 412
+        }
+      ]
+    }
+  },
+  "verdict": "PARTIALLY CONFIRMED",
+  "verdict_detail": "Two blocks together (RPA+RPA) improve discovery reliability from 1/10 to 4/10 when search budget is severely limited (50 gens, pop 10). One block alone (RPA) does NOT help (0/10). The composition of TWO blocks provides the critical mass needed to seed the search space with useful partial solutions.",
+  "key_findings": [
+    "With 50 gens x pop 10, random search FAILS 9/10 times on sum_6",
+    "One block (RPA) does NOT help: 0/10 found",
+    "Two blocks (RPA+RPA) DO help: 4/10 found (4x improvement)",
+    "The improvement is in RELIABILITY, not speed",
+    "Blocks only help when search budget is severely limited",
+    "With sufficient budget (500 gens), blocks are unnecessary"
+  ],
+  "comparison_to_previous": {
+    "500_gens_pop_50": {
+      "random": "5/5 found",
+      "blocks": "no advantage",
+      "conclusion": "search budget sufficient, blocks unnecessary"
+    },
+    "50_gens_pop_10": {
+      "random": "1/10 found",
+      "rpa": "0/10 found",
+      "rpa_rpa": "4/10 found",
+      "conclusion": "search budget insufficient, two blocks help"
+    }
+  },
+  "final_conclusion": "Blocks provide value ONLY when the search budget is insufficient for evolution to find the solution independently. With two composed blocks, reliability improves from 10% to 40%. This is the first POSITIVE result for blocks in the ACID experiment."
+}
