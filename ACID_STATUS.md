@@ -1,40 +1,49 @@
-# ACID STATUS - STRENGTHENED
+# ACID STATUS - STATISTICAL COMPARISON COMPLETE
 
-## Verdict: CONFIRMED with HONEST CAVEATS
+## Verdict: REFUTED (for sum_3)
 
-### Composition: CONFIRMED
-- 3/4 seeds produce genuine READ+ADD computation
-- System composes read_pair_add + additional ops to build sum_3
-- 1 false positive caught by multi-input verification
+Blocks do NOT improve discovery for sum_3.
+Random search finds sum_3 in 10/10 seeds.
+The task is too easy for blocks to matter.
 
-### Transfer: CONFIRMED
-- sum_4: [1,2,3,4] -> [10] PASS
-- sum_5: [2,2,2,2,2] -> [10] PASS
-- Pattern extends by adding READ+ADD pairs
+## Exact Numbers
 
-### Self-Improvement: PARTIAL
-- Reliability: 9/10 (block) vs 8/10 (random) = 12.5% improvement
-- Speed: 0.9x (NO speed improvement)
-- HONEST: Block improves reliability, not speed
-- Previous 2178x was because block WAS the full answer
+| Config | Found | Avg Evals | Std Dev | Speedup |
+|--------|-------|-----------|---------|----------|
+| Random | 10/10 | 2,697 | 3,148 | baseline |
+| RPA | 10/10 | 3,260 | 3,204 | 0.83x (SLOWER) |
+| RPA+WO | 10/10 | 2,554 | 3,630 | 1.06x (marginal) |
 
-### Key Insight
-The read_pair_add block alone is not sufficient for dramatic speedup.
-It must be COMPOSED with additional operations, which takes similar
-time to random search. The block's value is RELIABILITY, not SPEED.
+## Why This Is The Truth
 
-### Comparison
-| Metric | Previous (full answer block) | Strengthened (partial block) |
-|--------|------------------------------|------------------------------|
-| Block | read_triple_add (IS the answer) | read_pair_add (component) |
-| Speedup | 2178x | 0.9x |
-| Reliability | 10/10 | 9/10 vs 8/10 |
-| Honest | NO (block was answer) | YES (block is component) |
-| Composition | Not needed | REQUIRED and ACHIEVED |
+1. sum_3 requires: READ+READ+ADD+READ+ADD+WRITE+HALT (7 ops)
+2. With 500 gens x pop 50 = 25,000 evaluations per seed
+3. Random mutation hits this 7-op pattern reliably
+4. Blocks add structure but the search budget is already sufficient
+5. Therefore: blocks provide no advantage for this task
 
-### What This Proves
-1. Composition from smaller blocks IS possible
-2. Discovered patterns DO transfer to new tasks
-3. Multi-input verification catches false positives
-4. Self-improvement exists as reliability gain
-5. Dramatic speedup requires the block to BE the answer
+## What This Means
+
+The ACID system correctly reports a NEGATIVE result.
+This is the system working as designed.
+Truth > Appearance. Evidence > Claim.
+
+## What Would Change The Result
+
+To demonstrate block value, need:
+1. Harder tasks (sum_10, sum_20, nested patterns)
+2. Reduced search budget (50 gens, pop 10)
+3. Tasks requiring 20+ specific instructions
+4. Tasks where random search FAILS
+
+## Cumulative ACID Findings
+
+| Claim | Status | Evidence |
+|-------|--------|----------|
+| Substrate computes | CONFIRMED | 6/6 tests pass |
+| Tasks require structure | CONFIRMED | random < 5% (calibrated) |
+| Composition works | CONFIRMED | 3/4 seeds compose |
+| Transfer works | CONFIRMED | sum_4 + sum_5 pass |
+| Blocks speed up easy tasks | REFUTED | 0.83x-1.06x, no advantage |
+| Self-improvement (easy tasks) | REFUTED | No speed gain |
+| Self-improvement (hard tasks) | UNTESTED | Need harder tasks |
