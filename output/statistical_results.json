@@ -1,0 +1,87 @@
+{
+  "experiment": "ACID Statistical Comparison - 3 configs x 10 seeds x 500 gens",
+  "timestamp": "2026-08-13",
+  "verdict": "REFUTED",
+  "verdict_detail": "Blocks do not improve discovery for sum_3. Task is too easy.",
+  "configurations": {
+    "random": {
+      "blocks": "NONE",
+      "found_rate": "10/10",
+      "avg_evals_when_found": 2697,
+      "avg_evals_overall": 2697,
+      "std_dev": 3148,
+      "individual": [
+        8705,
+        2644,
+        352,
+        1321,
+        475,
+        5078,
+        99,
+        6,
+        7806,
+        487
+      ]
+    },
+    "rpa": {
+      "blocks": "read_pair_add [READ, READ, ADD]",
+      "found_rate": "10/10",
+      "avg_evals_when_found": 3260,
+      "avg_evals_overall": 3260,
+      "std_dev": 3204,
+      "speedup_vs_random": "0.83x (SLOWER)",
+      "individual": [
+        2042,
+        5295,
+        7714,
+        424,
+        2777,
+        9996,
+        2946,
+        307,
+        425,
+        672
+      ]
+    },
+    "rpa_wo": {
+      "blocks": "read_pair_add + write_output [READ,READ,ADD] + [WRITE,HALT]",
+      "found_rate": "10/10",
+      "avg_evals_when_found": 2554,
+      "avg_evals_overall": 2554,
+      "std_dev": 3630,
+      "speedup_vs_random": "1.06x (marginal)",
+      "individual": [
+        1063,
+        323,
+        56,
+        2994,
+        11505,
+        276,
+        115,
+        106,
+        2011,
+        7093
+      ]
+    }
+  },
+  "key_finding": {
+    "sum_3_is_too_easy": true,
+    "random_search_succeeds": "10/10 seeds",
+    "blocks_do_not_help": true,
+    "reason": "With 500 generations and population 50, random search finds sum_3 every time. The search space is small enough that random mutation hits the solution. Blocks provide no advantage because the task does not require composition.",
+    "implication": "To demonstrate block value, tasks must be hard enough that random search FAILS. sum_3 is not such a task."
+  },
+  "what_would_demonstrate_block_value": [
+    "Tasks requiring 10+ READ+ADD operations (sum_10, sum_20)",
+    "Tasks requiring nested loops or conditional branching",
+    "Tasks with multiple outputs requiring coordination",
+    "Tasks where the solution requires 20+ specific instructions in sequence",
+    "Reduce generations to 50 and population to 10 to make random search fail"
+  ],
+  "previous_results_context": {
+    "first_run": "2178x speedup claimed, but block WAS the full answer (read_triple_add = sum_3 solution)",
+    "strengthening_run": "Composition confirmed (3/4 real), transfer confirmed, self-improvement partial",
+    "this_run": "REFUTED: With sufficient search budget, blocks are unnecessary for sum_3"
+  },
+  "honest_conclusion": "The ACID system correctly identifies that sum_3 is too easy for blocks to matter. This is a VALID negative result. The system is working as designed: it reports truth, not desired outcomes."
+}
