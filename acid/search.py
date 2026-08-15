@@ -36,6 +36,57 @@ class Candidate:
         }
 
 
+
+# ============================================================
+# BUILDING BLOCKS - Common program fragments for discovery
+# ============================================================
+
+BLOCKS = {
+    "read_pair_add": [("READ", 0), ("READ", 1), ("ADD", 0)],
+    "read_add_write": [("READ", 0), ("READ", 1), ("ADD", 0), ("WRITE", 2)],
+    "read_triple_add": [("READ", 0), ("READ", 1), ("ADD", 0), ("READ", 2), ("ADD", 0), ("WRITE", 3)],
+    "push_write": [("PUSH", 0), ("WRITE", 1)],
+    "read_write": [("READ", 0), ("WRITE", 1)],
+    "dup_add": [("READ", 0), ("DUP", 0), ("ADD", 0), ("WRITE", 1)],
+}
+
+
+def compose_from_blocks(rng, block_names=None, extra_len=3):
+    """Compose a program from building blocks + random tail."""
+    from acid.substrate import PRIMITIVES, SubstrateProgram
+    
+    if block_names is None:
+        block_names = list(BLOCKS.keys())
+    
+    instructions = []
+    constants = [rng.randint(0, 50) for _ in range(5)]
+    
+    for name in block_names:
+        if name in BLOCKS:
+            instructions.extend(BLOCKS[name])
+    
+    for _ in range(extra_len):
+        op = rng.choice(PRIMITIVES + ["HALT"])
+        instructions.append((op, rng.randint(0, 10)))
+    
+    instructions.append(("HALT", 0))
+    return SubstrateProgram(instructions[:200], constants)
+
+
+def block_seeded_population(rng, pop_size, block_names=None):
+    """Create a population seeded with block-based programs."""
+    population = []
+    
+    for _ in range(pop_size // 3):
+        name = rng.choice(list(BLOCKS.keys())) if block_names is None else rng.choice(block_names)
+        population.append(compose_from_blocks(rng, [name], extra_len=rng.randint(0, 5)))
+    
+    while len(population) < pop_size:
+        population.append(random_program(rng, max_len=25))
+    
+    return population
+
+
 def random_program(rng, max_len=50):
     """Generate a random program."""
     length = rng.randint(5, max_len)
