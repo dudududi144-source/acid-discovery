@@ -175,6 +175,10 @@ class Executor:
                     memory[cell] = stack[-1]
                     outputs.append(stack[-1])
 
+                        elif op == "STORE":
+                cell = arg % 64
+                if stack:
+                    memory[cell] = stack[-1]
             pc += 1
 
         return {
