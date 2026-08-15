@@ -9,7 +9,7 @@ __version__ = "10.0.0"
 
 from acid.substrate import Program, Executor, PRIMITIVES
 from acid.search import DiscoveryEngine, random_program, mutate_program
-from acid.verifier import VerificationLayer
+from acid.verifier import IndependentVerifier
 from acid.distiller import DistillationPipeline
 from acid.transfer import TransferEngine
 from acid.evidence import EvidenceGraph
@@ -36,7 +36,7 @@ from acid.utils import compute_hash, format_duration, format_number, retry, vali
 __all__ = [
     "Program", "Executor", "PRIMITIVES",
     "DiscoveryEngine", "random_program", "mutate_program",
-    "VerificationLayer",
+    "IndependentVerifier",
     "DistillationPipeline",
     "TransferEngine",
     "EvidenceGraph",
