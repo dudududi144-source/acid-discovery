@@ -130,13 +130,12 @@ class Executor:
             elif op == "STORE":
                 cell = arg % MAX_MEMORY
                 if stack:
-                    memory[cell] = stack[-1]
-                elif op == "LOAD":
-                    cell = arg % MAX_MEMORY
-                    if len(stack) < MAX_STACK:
-                        stack.append(memory[cell])
+                    memory[cell] = stack[-1] pc += 1
+            elif op == "LOAD":
+                cell = arg % MAX_MEMORY
+                if len(stack) < MAX_STACK:
+                    stack.append(memory[cell])
 
-            pc += 1
 
         return {"outputs": outputs, "steps": steps, "halted": pc >= n or steps >= self.max_steps}
 
