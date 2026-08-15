@@ -121,7 +121,7 @@ class Executor:
                     memory[cell] = inputs[input_idx]
                     input_idx += 1
                 if len(stack) < MAX_STACK:
-                    stack.push(memory[cell])
+                    stack.append(memory[cell])
             elif op == "WRITE":
                 cell = arg % MAX_MEMORY
                 if stack:
