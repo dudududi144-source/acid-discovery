@@ -10,8 +10,8 @@ __version__ = "10.0.0"
 from acid.substrate import Program, Executor, PRIMITIVES
 from acid.search import DiscoveryEngine, random_program, mutate_program
 from acid.verifier import IndependentVerifier
-from acid.distiller import DistillationPipeline
-from acid.transfer import TransferEngine
+from acid.distiller import DistilledArtifact
+from acid.transfer import TransferTester
 from acid.evidence import EvidenceGraph
 from acid.adversary import Adversary
 from acid.improver import SelfImprovementMeasurer
@@ -37,8 +37,8 @@ __all__ = [
     "Program", "Executor", "PRIMITIVES",
     "DiscoveryEngine", "random_program", "mutate_program",
     "IndependentVerifier",
-    "DistillationPipeline",
-    "TransferEngine",
+    "DistilledArtifact",
+    "TransferTester",
     "EvidenceGraph",
     "Adversary",
     "SelfImprovementMeasurer",
@@ -57,6 +57,6 @@ __all__ = [
     "Dashboard", "generate_dashboard_html",
     "Plugin", "PluginRegistry", "LoggingPlugin", "MetricsPlugin", "create_default_registry",
     "RateLimiter", "AuditTrail", "Authenticator", "Authorizer", "SecurityManager",
-    "Config", "config", "DEFAULT_CONFIG",
+    "Config", "Config", "Config",
     "compute_hash", "format_duration", "format_number", "retry", "validate_inputs",
 ]
