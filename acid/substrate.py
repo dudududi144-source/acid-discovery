@@ -7,7 +7,7 @@ import hashlib
 import json
 
 PRIMITIVES = ["PUSH", "POP", "DUP", "SWAP", "ADD", "SUB", "MUL", "MOD",
-              "GT", "LT", "EQ", "AND", "OR", "NOT", "JZ", "READ", "WRITE", "STORE", "HALT"]
+              "GT", "LT", "EQ", "AND", "OR", "NOT", "JZ", "READ", "WRITE", "STORE", "LOAD", "HALT"]
 
 MAX_STACK = 256
 MAX_MEMORY = 64
@@ -131,6 +131,11 @@ class Executor:
                 cell = arg % MAX_MEMORY
                 if stack:
                     memory[cell] = stack[-1]
+                elif op == "LOAD":
+                    cell = arg % MAX_MEMORY
+                    if len(stack) < MAX_STACK:
+                        stack.append(memory[cell])
+
             pc += 1
 
         return {"outputs": outputs, "steps": steps, "halted": pc >= n or steps >= self.max_steps}
