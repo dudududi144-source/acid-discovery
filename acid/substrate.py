@@ -1,7 +1,6 @@
 """
 ACID Substrate - Minimal computational substrate.
-19 primitives: PUSH, POP, DUP, SWAP, ADD, SUB, MUL, MOD,
-               GT, LT, EQ, AND, OR, NOT, JZ, READ, WRITE, STORE, HALT
+20 primitives including STORE and LOAD for memory access.
 """
 import hashlib
 import json
@@ -130,12 +129,13 @@ class Executor:
             elif op == "STORE":
                 cell = arg % MAX_MEMORY
                 if stack:
-                    memory[cell] = stack[-1] pc += 1
+                    memory[cell] = stack[-1]
             elif op == "LOAD":
                 cell = arg % MAX_MEMORY
                 if len(stack) < MAX_STACK:
                     stack.append(memory[cell])
 
+            pc += 1
 
         return {"outputs": outputs, "steps": steps, "halted": pc >= n or steps >= self.max_steps}
 
@@ -148,6 +148,7 @@ def validate_substrate():
         ("add", [("PUSH", 0), ("PUSH", 1), ("ADD", 0), ("WRITE", 2), ("HALT", 0)], [3, 7], [], [10]),
         ("read_add", [("READ", 0), ("READ", 1), ("ADD", 0), ("WRITE", 2), ("HALT", 0)], [], [2, 3], [5]),
         ("store", [("READ", 0), ("STORE", 1), ("HALT", 0)], [], [42], []),
+        ("store_load", [("READ", 0), ("STORE", 1), ("LOAD", 1), ("WRITE", 2), ("HALT", 0)], [], [42], [42]),
     ]
     for name, instr, consts, inputs, expected in tests:
         prog = SubstrateProgram(instr, consts)
