@@ -5,7 +5,7 @@ Adversarial: tries to BREAK the candidate.
 """
 import time
 import random
-from acid.substrate import Program, Executor, MAX_STEPS, MAX_STACK, MAX_MEMORY
+from acid.substrate import SubstrateProgram as Program, Executor, MAX_STEPS, MAX_STACK, MAX_MEMORY
 
 
 class IndependentVerifier:
