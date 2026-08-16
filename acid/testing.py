@@ -68,7 +68,7 @@ class TestSuite:
 
 def build_substrate_tests():
     """Build substrate test suite."""
-    from acid.substrate import Program, Executor, validate_substrate
+    from acid.substrate import SubstrateProgram as Program, Executor, validate_substrate
     
     suite = TestSuite("Substrate")
     
@@ -105,7 +105,7 @@ def build_substrate_tests():
 
 def build_verifier_tests():
     """Build verifier test suite."""
-    from acid.substrate import Program, Executor
+    from acid.substrate import SubstrateProgram as Program, Executor
     
     suite = TestSuite("Verifier")
     ex = Executor()
