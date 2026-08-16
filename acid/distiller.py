@@ -9,7 +9,7 @@ RAW OBSERVATIONS -> ALIGNMENT -> ESSENTIAL PART IDENTIFICATION
 import hashlib
 import json
 import time
-from acid.substrate import Program, Executor
+from acid.substrate import SubstrateProgram as Program, Executor
 
 
 class DistilledArtifact:
