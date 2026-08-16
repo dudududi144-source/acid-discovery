@@ -4,7 +4,7 @@ Not just random mutation. Observe -> Hypothesize -> Construct -> Refine.
 """
 import random
 import time
-from acid.substrate import Program, Executor, PRIMITIVES, MAX_PROGRAM_LENGTH
+from acid.substrate import SubstrateProgram as Program, Executor, PRIMITIVES, MAX_PROGRAM_LENGTH
 
 
 class Candidate:
