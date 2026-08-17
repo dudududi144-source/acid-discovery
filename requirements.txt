@@ -1,10 +1,2 @@
 # ACID Dependencies
 httpx>=0.24.0
-
-# Optional: for parallel processing
-# concurrent.futures (built-in)
-
-# Development dependencies
-# pytest>=7.0.0
-# pytest-cov>=4.0.0
-# flake8>=6.0.0
