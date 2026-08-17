@@ -142,3 +142,85 @@ class SelfImprovementTracker:
             "improvement": self.measure_improvement()
         }
 
+
+
+# ============================================================
+# FIX: Self-improvement with actual knowledge injection
+# ============================================================
+
+def measure_real_improvement(task_fn, inputs, expected, artifacts, generations=200, pop_size=50):
+    """Measure self-improvement by comparing search WITH and WITHOUT artifacts.
+    
+    This actually injects artifacts into the second search,
+    unlike the previous implementation which ran identical searches.
+    """
+    from acid.search import random_program, mutate_program
+    from acid.substrate import SubstrateProgram, Executor
+    import random
+    
+    ex = Executor()
+    
+    # SYSTEM 0: WITHOUT artifacts (pure random search)
+    rng0 = random.Random(42)
+    population0 = [random_program(rng0, max_len=25) for _ in range(pop_size)]
+    evals0 = 0
+    found0 = False
+    
+    for gen in range(generations):
+        for prog in population0:
+            try:
+                result = ex.execute(prog, inputs=inputs)
+                evals0 += 1
+                if result["outputs"] and result["outputs"][0] == expected[0]:
+                    found0 = True
+                    break
+            except:
+                evals0 += 1
+        if found0:
+            break
+        # Simple mutation
+        population0 = [mutate_program(p, rng0)[0] for p in population0[:pop_size//4]] +                       [random_program(rng0, max_len=25) for _ in range(pop_size - pop_size//4)]
+    
+    # SYSTEM 1: WITH artifacts (seeded search)
+    rng1 = random.Random(42)
+    population1 = []
+    
+    # Actually inject artifacts as seeds
+    for artifact in artifacts[:pop_size // 3]:
+        if hasattr(artifact, 'instructions'):
+            population1.append(SubstrateProgram(artifact.instructions, artifact.constants))
+        elif isinstance(artifact, dict) and 'instructions' in artifact:
+            population1.append(SubstrateProgram(artifact['instructions'], artifact.get('constants', [0]*10)))
+    
+    # Fill rest with random
+    while len(population1) < pop_size:
+        population1.append(random_program(rng1, max_len=25))
+    
+    evals1 = 0
+    found1 = False
+    
+    for gen in range(generations):
+        for prog in population1:
+            try:
+                result = ex.execute(prog, inputs=inputs)
+                evals1 += 1
+                if result["outputs"] and result["outputs"][0] == expected[0]:
+                    found1 = True
+                    break
+            except:
+                evals1 += 1
+        if found1:
+            break
+        population1 = [mutate_program(p, rng1)[0] for p in population1[:pop_size//4]] +                       [random_program(rng1, max_len=25) for _ in range(pop_size - pop_size//4)]
+    
+    # Compare
+    improved = (found1 and not found0) or (found1 and found1 and evals1 < evals0)
+    
+    return {
+        "system_0": {"found": found0, "evals": evals0},
+        "system_1": {"found": found1, "evals": evals1},
+        "improved": improved,
+        "artifacts_used": len(artifacts),
+        "speedup": evals0 / max(1, evals1) if found1 else 0
+    }
+
