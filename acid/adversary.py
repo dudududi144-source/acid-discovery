@@ -95,3 +95,73 @@ class Adversary:
             "overall": "PASS" if high_risk == 0 else "CAUTION" if high_risk <= 1 else "FAIL",
             "timestamp": time.time()
         }
+
+
+# ============================================================
+# FIX: Adversarial testing that checks CORRECTNESS
+# ============================================================
+
+def adversarial_correctness_test(program, task_fn, num_tests=20):
+    """Adversarial test that checks CORRECTNESS, not just survival.
+    
+    Previous version only checked if the program crashed.
+    This version checks if the program produces CORRECT outputs
+    for adversarial inputs.
+    """
+    import random
+    rng = random.Random(999)
+    
+    from acid.substrate import Executor
+    ex = Executor()
+    
+    # Generate adversarial inputs
+    adversarial_inputs = []
+    
+    # Edge cases
+    adversarial_inputs.append([0, 0, 0])
+    adversarial_inputs.append([999999, 999999, 999999])
+    adversarial_inputs.append([-1, -1, -1])
+    adversarial_inputs.append([1])
+    adversarial_inputs.append([0])
+    
+    # Random adversarial
+    for _ in range(num_tests - 5):
+        length = rng.randint(1, 6)
+        inputs = [rng.randint(-100, 100) for _ in range(length)]
+        adversarial_inputs.append(inputs)
+    
+    # Test each adversarial input
+    passed = 0
+    failed = 0
+    crashed = 0
+    
+    for inputs in adversarial_inputs:
+        try:
+            result = ex.execute(program, inputs=inputs)
+            
+            # Check correctness against task function
+            if task_fn:
+                expected = task_fn(inputs)
+                if result["outputs"] == expected:
+                    passed += 1
+                else:
+                    failed += 1
+            else:
+                # If no task_fn, just check it doesn't crash
+                passed += 1
+        except Exception:
+            crashed += 1
+    
+    total = len(adversarial_inputs)
+    correctness_rate = passed / max(1, total - crashed)
+    
+    return {
+        "passed": passed,
+        "failed": failed,
+        "crashed": crashed,
+        "total": total,
+        "correctness_rate": correctness_rate,
+        "is_correct": correctness_rate >= 0.9,
+        "survived": crashed == 0
+    }
+
