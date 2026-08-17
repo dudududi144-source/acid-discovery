@@ -1,6 +1,6 @@
 # ACID STATUS
 
-## System: OPERATIONAL
+## System: OPERATIONAL (with limitations)
 
 ## Version: 10.0.0
 
@@ -14,23 +14,37 @@
 PUSH, POP, DUP, SWAP, ADD, SUB, MUL, MOD,
 GT, LT, EQ, AND, OR, NOT, JZ, READ, WRITE, STORE, LOAD, HALT
 
-## Discovery Engine
-- Smart mutation (3 strategies)
-- Crossover
-- KB seeding
-- History tracking
-- Default: 500 generations, 100 population
+## ARITHMETIC DOMAIN
+- Modular arithmetic (mod 1,000,000): PROVEN
+- Integer arithmetic: FAILED (negative sums wrap)
+- CLAIM = MODULAR ARITHMETIC ONLY
 
-## Tasks Verified: 8/8
-sum2, sum3, sum4, mul2, double, max2, min2, abs
+## AUDIT FINDINGS (2026-08-16)
 
-## Test Results
-- Imports: 7/7 PASS
-- Substrate: 13/14 PASS
-- Discovery: WORKS
-- Advanced tasks: PASS
-- Pipeline: PASS
-- Worker: ALL FEATURES PRESENT
+### PROVEN
+- Positive-domain solving: 10/10 tasks, 10000/10000 each
+- Modular arithmetic: 10000/10000 with negative inputs
+- Blind generalization: 10/10 tasks, 100000/100000
+- Reproducibility: 3/3 identical
+- Constant rejection: 93/93 rejected
+
+### NOT PROVEN
+- Transfer (artifact = answer, this is retrieval)
+- Self-improvement (not monotonic)
+- Mutation contribution (0% = 50%)
+- Verification contribution (not needed for discovery)
+- Seed reliability (41/100 without artifact)
+
+### COUNTEREXAMPLES FOUND
+1. Modulo assumption (negative sums wrap)
+2. Seed sensitivity (1/10 without artifact)
+3. Artifact = answer (retrieval, not transfer)
+
+## CAUSAL MECHANISM
+
+The artifact IS the causal mechanism.
+The search provides 9pp improvement over random.
+Mutation, verification, transfer are not causal.
 
 ## Last Updated
 2026-08-16
