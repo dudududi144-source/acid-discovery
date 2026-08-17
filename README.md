@@ -1,52 +1,79 @@
 # ACID - Autonomous Computational Intelligence Discovery
 
-## The Research Question
+A system that discovers, verifies, distills, and transfers computational mechanisms through evolutionary search on a minimal substrate.
 
-Can a deliberately constrained computational substrate, through structured
-search and observation, discover mechanisms not explicitly supplied, verify
-them independently, distill them into reusable knowledge, and thereby
-measurably improve future discovery capability?
+## Overview
 
-## What This Is
+ACID is a program synthesis system that:
+1. Discovers solutions through evolutionary search
+2. Verifies solutions independently
+3. Distills reusable patterns from successful solutions
+4. Transfers knowledge to new tasks
+5. Tracks self-improvement over generations
 
-An executable product. Not a proposal. Not a roadmap.
-Runs the full 8-phase pipeline and reports evidence-backed verdicts.
+## Substrate: 20 Primitives
 
-## Structure
+| Category | Primitives |
+|----------|------------|
+| Stack | PUSH, POP, DUP, SWAP |
+| Arithmetic | ADD, SUB, MUL, MOD |
+| Comparison | GT, LT, EQ |
+| Logic | AND, OR, NOT |
+| Memory | READ, WRITE, STORE, LOAD |
+| Control | JZ, HALT |
 
-- acid/substrate.py - 19 primitives, self-validating, no intelligence
-- acid/tasks.py - Calibrated task families (TRAIN/TRANSFER/NOVEL)
-- acid/search.py - Structured discovery (observe-hypothesize-construct)
-- acid/verifier.py - Independent adversarial verification
-- acid/distiller.py - Knowledge distillation (structural extraction)
-- acid/transfer.py - Transfer testing (fresh runtime)
-- acid/improver.py - Self-improvement measurement
-- acid/adversary.py - Adversarial self-validation
-- acid/evidence.py - Evidence graph (claims-experiments-verdicts)
-- run.py - THE EXECUTABLE
-- test_suite.py - 12 tests
+## Discovery Engine
 
-## Usage
+- Smart mutation: 3 strategies based on current score
+- Crossover: Combines two successful programs
+- KB seeding: Uses known solutions as starting points
+- History tracking: Records progress for self-improvement
 
-python test_suite.py
-python run.py --quick
-python run.py --seed 42 --generations 50 --population 30
+## Deployed
 
-## Phases
+- UI + API: https://acid-api.rabotatony.workers.dev
+- Repo: https://github.com/dudududi144-source/acid-discovery
 
-0. Substrate Validation (prove it can compute)
-1. Task Calibration (verify tasks require structure)
-2. Structured Discovery (not just random mutation)
-3. Independent Verification (adversarial, property-based)
-4. Knowledge Distillation (structural extraction)
-5. Transfer Test (fresh runtime, unseen tasks)
-6. Self-Improvement (SYSTEM_0 vs SYSTEM_1)
-7. Adversarial Validation (attack every result)
-8. Final Verdict (CONFIRMED/REFUTED/INCONCLUSIVE)
+## API Endpoints
 
-## Operating Law
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| / | GET | Web UI |
+| /api/status | GET | System health |
+| /api/solve | POST | Submit problem for discovery |
+| /api/knowledge | GET | List stored artifacts |
+| /api/knowledge | POST | Store artifact |
+| /api/analytics | GET | Metrics + history |
+| /api/transfer | POST | Transfer test |
 
-TRUTH > APPEARANCE
-EVIDENCE > CLAIM
-EXECUTION > EXPLANATION
-CORRECT FAILURE > FABRICATED SUCCESS
+## Tasks Verified (8/8)
+
+| Task | Description | Method |
+|------|-------------|--------|
+| sum2 | Sum of 2 inputs | READ + ADD + WRITE |
+| sum3 | Sum of 3 inputs | READ + ADD x 2 + WRITE |
+| sum4 | Sum of 4 inputs | READ + ADD x 3 + WRITE |
+| mul2 | Product of 2 inputs | READ + MUL + WRITE |
+| double | Double the input | READ + DUP + ADD + WRITE |
+| max2 | Max of 2 inputs | STORE + LOAD + GT + JZ |
+| min2 | Min of 2 inputs | STORE + LOAD + LT + JZ |
+| abs | Absolute value | STORE + LOAD + LT + SUB + JZ |
+
+## Installation
+
+pip install git+https://github.com/dudududi144-source/acid-discovery.git
+
+## Principles
+
+1. Truth > Appearance
+2. Evidence > Claim
+3. Execution > Explanation
+4. Correct Failure > Fabricated Success
+5. Composition > Addition
+6. Verification > Trust
+7. Distillation > Storage
+8. Transfer > Specialization
+
+## License
+
+MIT License
