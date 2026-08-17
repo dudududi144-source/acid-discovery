@@ -158,3 +158,94 @@ class Distiller:
         if not self.artifacts:
             return None
         return max(self.artifacts, key=lambda a: a.complexity_before - a.complexity_after)
+
+
+# ============================================================
+# REAL KNOWLEDGE DISTILLATION - Phase 3 additions
+# ============================================================
+
+def extract_patterns(successful_programs, min_frequency=2):
+    """Extract reusable patterns from successful programs."""
+    if len(successful_programs) < min_frequency:
+        return []
+    
+    # Find common subsequences of operations
+    op_sequences = []
+    for prog in successful_programs:
+        ops = [op for op, arg in prog.instructions]
+        op_sequences.append(ops)
+    
+    # Find common pairs and triples
+    common_patterns = {}
+    
+    for seq in op_sequences:
+        # Pairs
+        for i in range(len(seq) - 1):
+            pair = (seq[i], seq[i+1])
+            common_patterns[pair] = common_patterns.get(pair, 0) + 1
+        
+        # Triples
+        for i in range(len(seq) - 2):
+            triple = (seq[i], seq[i+1], seq[i+2])
+            common_patterns[triple] = common_patterns.get(triple, 0) + 1
+    
+    # Filter by frequency
+    frequent_patterns = [
+        (pattern, count) for pattern, count in common_patterns.items()
+        if count >= min_frequency
+    ]
+    
+    # Sort by frequency
+    frequent_patterns.sort(key=lambda x: -x[1])
+    
+    return frequent_patterns[:10]
+
+
+def parameterize_pattern(pattern):
+    """Convert a pattern to a parameterized template."""
+    # Replace specific arguments with parameters
+    template = []
+    param_count = 0
+    
+    for op, arg in pattern:
+        if op in ("READ", "WRITE", "STORE", "LOAD", "PUSH"):
+            # These take arguments that should be parameterized
+            template.append((op, "param_" + str(param_count)))
+            param_count += 1
+        else:
+            template.append((op, arg))
+    
+    return {
+        "template": template,
+        "params": param_count,
+        "reusable": True
+    }
+
+
+def distill_knowledge(successful_programs):
+    """Full distillation pipeline: extract patterns and create reusable knowledge."""
+    # Extract patterns
+    patterns = extract_patterns(successful_programs)
+    
+    if not patterns:
+        return {"patterns": [], "knowledge": []}
+    
+    # Parameterize patterns
+    knowledge = []
+    for pattern, frequency in patterns:
+        parameterized = parameterize_pattern(pattern)
+        knowledge.append({
+            "pattern": pattern,
+            "frequency": frequency,
+            "template": parameterized["template"],
+            "params": parameterized["params"],
+            "reusable": True
+        })
+    
+    return {
+        "patterns": patterns,
+        "knowledge": knowledge,
+        "total_patterns": len(patterns),
+        "total_knowledge": len(knowledge)
+    }
+
