@@ -78,3 +78,67 @@ class SelfImprovementMeasurer:
             "tasks_tested": len(tasks),
             "timestamp": time.time()
         }
+
+
+# ============================================================
+# SELF-IMPROVEMENT TRACKING - Phase 5 additions
+# ============================================================
+
+import time as _time
+
+class SelfImprovementTracker:
+    """Track and measure self-improvement over generations."""
+    
+    def __init__(self):
+        self.history = []
+    
+    def record_generation(self, gen, best_score, evals, kb_size):
+        """Record a generation's performance."""
+        self.history.append({
+            "gen": gen,
+            "best_score": best_score,
+            "evals": evals,
+            "kb_size": kb_size,
+            "timestamp": _time.time()
+        })
+    
+    def measure_improvement(self):
+        """Measure if the system is actually improving."""
+        if len(self.history) < 10:
+            return {"improving": False, "reason": "insufficient data"}
+        
+        early = self.history[:10]
+        late = self.history[-10:]
+        
+        early_score = sum(h["best_score"] for h in early) / 10
+        late_score = sum(h["best_score"] for h in late) / 10
+        
+        early_evals = sum(h["evals"] for h in early) / 10
+        late_evals = sum(h["evals"] for h in late) / 10
+        
+        early_kb = early[0]["kb_size"]
+        late_kb = late[-1]["kb_size"]
+        
+        improving = late_score > early_score or late_evals < early_evals or late_kb > early_kb
+        
+        return {
+            "improving": improving,
+            "score_change": late_score - early_score,
+            "evals_change": late_evals - early_evals,
+            "kb_growth": late_kb - early_kb,
+            "generations_tracked": len(self.history)
+        }
+    
+    def get_summary(self):
+        """Get a summary of improvement over time."""
+        if not self.history:
+            return {"status": "no data"}
+        
+        return {
+            "total_generations": len(self.history),
+            "best_score": max(h["best_score"] for h in self.history),
+            "total_evals": self.history[-1]["evals"] if self.history else 0,
+            "kb_size": self.history[-1]["kb_size"] if self.history else 0,
+            "improvement": self.measure_improvement()
+        }
+
