@@ -150,3 +150,85 @@ class IndependentVerifier:
             "adversarial": adversarial,
             "timestamp": time.time()
         }
+
+
+# ============================================================
+# FIX: Multi-input verification to reject constant programs
+# ============================================================
+
+def multi_input_verify(program, task_fn, num_tests=10):
+    """Verify a program against MULTIPLE random inputs.
+    
+    This catches constant programs like PUSH 6; WRITE; HALT
+    that pass single-input tests but fail on different inputs.
+    """
+    import random
+    rng = random.Random(42)
+    
+    # Generate multiple test cases
+    test_cases = []
+    for _ in range(num_tests):
+        # Generate random inputs of varying lengths
+        length = rng.randint(2, 5)
+        inputs = [rng.randint(0, 50) for _ in range(length)]
+        expected_sum = sum(inputs)
+        test_cases.append((inputs, [expected_sum]))
+    
+    # Run all test cases
+    passed = 0
+    failed = 0
+    
+    for inputs, expected in test_cases:
+        try:
+            from acid.substrate import Executor
+            ex = Executor()
+            result = ex.execute(program, inputs=inputs)
+            if result["outputs"] == expected:
+                passed += 1
+            else:
+                failed += 1
+        except Exception:
+            failed += 1
+    
+    # Must pass ALL tests to be considered valid
+    all_pass = (failed == 0 and passed > 0)
+    
+    return {
+        "all_pass": all_pass,
+        "passed": passed,
+        "failed": failed,
+        "total": num_tests,
+        "is_constant": (passed <= 1),  # If only 1 passes, likely constant
+    }
+
+
+def detect_constant_program(program, num_tests=5):
+    """Detect if a program is a constant (ignores inputs).
+    
+    A constant program produces the same output regardless of input.
+    """
+    import random
+    rng = random.Random(123)
+    
+    from acid.substrate import Executor
+    ex = Executor()
+    
+    outputs = []
+    for _ in range(num_tests):
+        inputs = [rng.randint(0, 100) for _ in range(rng.randint(2, 5))]
+        try:
+            result = ex.execute(program, inputs=inputs)
+            outputs.append(tuple(result["outputs"]))
+        except Exception:
+            outputs.append(None)
+    
+    # If all outputs are the same, it's a constant program
+    unique_outputs = set(outputs)
+    is_constant = len(unique_outputs) <= 1
+    
+    return {
+        "is_constant": is_constant,
+        "unique_outputs": len(unique_outputs),
+        "outputs": outputs[:3]
+    }
+
