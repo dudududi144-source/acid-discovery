@@ -315,3 +315,137 @@ class DiscoveryEngine:
 
     def get_stats(self):
         return dict(self.stats)
+
+
+# ============================================================
+# SMART DISCOVERY - Added for powerful search
+# ============================================================
+
+def crossover(p1, p2):
+    """Combine two programs by crossover."""
+    cut1 = len(p1.instructions) // 2
+    cut2 = len(p2.instructions) // 2
+    new_instructions = p1.instructions[:cut1] + p2.instructions[cut2:]
+    new_constants = list(set(p1.constants + p2.constants))[:10]
+    return SubstrateProgram(new_instructions[:MAX_PROGRAM_LENGTH], new_constants)
+
+
+def smart_mutate(program, score, rng=None):
+    """Smart mutation: adapts strategy based on current score.
+    
+    score > 0.5: Fine-tuning (small changes)
+    score > 0:   Pattern addition (add useful fragments)
+    score = 0:   Exploration (big changes)
+    """
+    if rng is None:
+        import random
+        rng = random.Random()
+    
+    instructions = list(program.instructions)
+    constants = list(program.constants)
+    
+    if score > 0.5:
+        # FINE-TUNING
+        if len(instructions) > 2:
+            idx = rng.randint(0, len(instructions) - 1)
+            instructions[idx] = (instructions[idx][0], rng.randint(0, 20))
+    elif score > 0:
+        # PATTERN ADDITION
+        patterns = [
+            [("READ", rng.randint(0, 3)), ("ADD", 0)],
+            [("DUP", 0), ("ADD", 0)],
+            [("READ", rng.randint(0, 3)), ("MUL", 0)],
+        ]
+        pattern = rng.choice(patterns)
+        pos = rng.randint(0, len(instructions))
+        for i, op in enumerate(pattern):
+            instructions.insert(pos + i, op)
+    else:
+        # EXPLORATION
+        r = rng.random()
+        if r < 0.3 and len(instructions) > 0:
+            idx = rng.randint(0, len(instructions) - 1)
+            instructions[idx] = (rng.choice(PRIMITIVES + ["HALT"]), instructions[idx][1])
+        elif r < 0.6 and len(instructions) < MAX_PROGRAM_LENGTH:
+            instructions.insert(rng.randint(0, len(instructions)), (rng.choice(PRIMITIVES), rng.randint(0, 10)))
+        elif len(instructions) > 3:
+            instructions.pop(rng.randint(0, len(instructions) - 1))
+    
+    if rng.random() < 0.3 and constants:
+        constants[rng.randint(0, len(constants) - 1)] = rng.randint(0, 50)
+    
+    return SubstrateProgram(instructions[:MAX_PROGRAM_LENGTH], constants)
+
+
+def smart_discover(task_fn, inputs, expected, generations=500, pop_size=100, seed_kb=None, rng=None):
+    """Smart discovery: adaptive mutation + crossover + KB seeding.
+    
+    This is the main discovery function that combines:
+    1. Smart mutation (3 strategies based on score)
+    2. Crossover (combines successful programs)
+    3. KB seeding (uses known solutions as starting points)
+    4. History tracking (records progress for self-improvement)
+    """
+    if rng is None:
+        import random
+        rng = random.Random()
+    
+    from acid.substrate import Executor
+    
+    # Initialize population with KB seeds
+    population = []
+    if seed_kb:
+        for artifact in seed_kb[:pop_size // 4]:
+            if hasattr(artifact, 'instructions'):
+                population.append(SubstrateProgram(artifact.instructions, artifact.constants))
+    
+    # Fill with random programs
+    while len(population) < pop_size:
+        population.append(random_program(rng, max_len=25))
+    
+    ex = Executor()
+    total_evals = 0
+    best_score = 0
+    history = []
+    
+    for gen in range(generations):
+        scored = []
+        for prog in population:
+            try:
+                result = ex.execute(prog, inputs=inputs)
+                total_evals += 1
+                if result["outputs"] and result["outputs"][0] == expected[0]:
+                    score = 1.0
+                elif result["outputs"] and abs(result["outputs"][0] - expected[0]) <= 1:
+                    score = 0.3
+                else:
+                    score = 0.0
+                scored.append((score, prog))
+                if score > best_score:
+                    best_score = score
+                if score >= 1.0:
+                    return {"found": True, "program": prog, "evals": total_evals, "gen": gen, "history": history}
+            except Exception:
+                total_evals += 1
+                scored.append((0.0, prog))
+        
+        scored.sort(key=lambda x: -x[0])
+        survivors = [s[1] for s in scored[:max(2, pop_size // 4)]]
+        survivor_scores = [s[0] for s in scored[:max(2, pop_size // 4)]]
+        
+        new_pop = [scored[0][1]] if scored else []
+        while len(new_pop) < pop_size:
+            r = rng.random()
+            if r < 0.3 and survivors:
+                idx = rng.randint(0, len(survivors) - 1)
+                new_pop.append(smart_mutate(survivors[idx], survivor_scores[idx], rng))
+            elif r < 0.5 and len(survivors) >= 2:
+                new_pop.append(crossover(rng.choice(survivors), rng.choice(survivors)))
+            else:
+                new_pop.append(random_program(rng, max_len=25))
+        
+        population = new_pop
+        history.append({"gen": gen, "evals": total_evals, "score": best_score})
+    
+    return {"found": False, "evals": total_evals, "gen": generations, "best_score": best_score, "history": history}
+
