@@ -5,7 +5,7 @@
 UI (Pages) -> API Worker (Discovery) -> Knowledge Base
                     |
                     v
-             Substrate Executor (18 prims)
+             Substrate Executor (20 prims)
                     |
                     v
              Verification Pipeline (5 tests)
@@ -19,7 +19,7 @@ UI (Pages) -> API Worker (Discovery) -> Knowledge Base
 ## Components
 
 ### 1. Substrate Executor
-- 18 primitives: PUSH, POP, DUP, SWAP, ADD, SUB, MUL, MOD, GT, LT, EQ, AND, OR, NOT, JZ, READ, WRITE, HALT
+- 20 primitives: PUSH, POP, DUP, SWAP, ADD, SUB, MUL, MOD, GT, LT, EQ, AND, OR, NOT, JZ, READ, WRITE, HALT
 - Bounded execution (10,000 steps max)
 - Deterministic (same input -> same output)
 - No side effects
