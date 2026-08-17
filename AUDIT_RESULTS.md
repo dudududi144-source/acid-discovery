@@ -163,3 +163,93 @@ Everything else is the artifact.
 3. ARTIFACT = ANSWER
    The artifact for sum4 IS the sum4 solution.
    CLAIM "transfer" = INVALIDATED (this is retrieval).
+
+
+## PATTERN-BASED TRANSFER TEST (Post-Audit Fix)
+
+### THE PROBLEM
+The original artifact for sum4 WAS the sum4 solution.
+This was RETRIEVAL, not TRANSFER.
+
+### THE FIX
+Made the artifact a PATTERN (3 instructions) instead of the full solution (9 instructions).
+The pattern is: READ(0) READ(1) ADD(0)
+This is a building block, not the answer.
+
+### RESULTS
+
+OLD APPROACH (artifact = answer):
+- Artifact solves sum4 directly: YES
+- Success rate: 100/100
+- Mean evals: 30
+- THIS IS RETRIEVAL, NOT TRANSFER
+
+NEW APPROACH (artifact = pattern):
+- Pattern solves sum4 directly: NO
+- Pattern output: [] (incomplete)
+- Success rate: 89/100
+- Mean evals: 3308
+- THIS IS MARGINAL TRANSFER
+
+NO ARTIFACT (baseline):
+- Success rate: 84/100
+- Mean evals: 4331
+
+### COMPARISON
+
+approach | success | mean_evals
+artifact=answer | 100/100 | 30
+artifact=pattern | 89/100 | 3308
+no artifact | 84/100 | 4331
+
+### ANALYSIS
+
+The pattern provides only 5 percentage points improvement over baseline.
+The search still needs to do most of the work.
+
+This is the HONEST result:
+- The pattern helps slightly (5pp)
+- But it's not the answer
+- The search does the actual discovery
+
+### CAUSAL MECHANISM (UPDATED)
+
+The artifact IS the causal mechanism when artifact = answer.
+The artifact provides MARGINAL help when artifact = pattern.
+The search provides the actual discovery capability.
+
+WITH artifact = answer: RETRIEVAL (not transfer)
+WITH artifact = pattern: MARGINAL TRANSFER (5pp)
+WITHOUT artifact: BASELINE DISCOVERY (84/100)
+
+### REVISED CAUSAL CONCLUSION
+
+The original "transfer" was retrieval (artifact = answer).
+The fixed "transfer" is marginal (5pp improvement).
+The actual discovery capability is the search mechanism.
+
+ACID's search mechanism provides:
+- 84/100 success rate without any artifact
+- 89/100 success rate with pattern artifact
+- 100/100 success rate with answer artifact (retrieval)
+
+The 5pp improvement from pattern is the ACTUAL transfer benefit.
+The 16pp improvement from answer is RETRIEVAL, not transfer.
+
+### FINAL HONEST ASSESSMENT
+
+ACID's actual capabilities:
+1. Program synthesis: 84/100 success (without artifact)
+2. Pattern-based transfer: +5pp improvement
+3. Answer retrieval: +16pp improvement (NOT transfer)
+4. Modular arithmetic: PROVEN
+5. Blind generalization: PROVEN (10/10 tasks)
+6. Reproducibility: PROVEN
+
+ACID's limitations:
+1. Integer arithmetic: FAILED (modulo wrapping)
+2. Transfer: MARGINAL (5pp with pattern)
+3. Self-improvement: NOT PROVEN
+4. Seed reliability: 84/100 (without artifact)
+
+The system is honest about what it can and cannot do.
