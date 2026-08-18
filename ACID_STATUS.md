@@ -1,29 +1,29 @@
 # ACID STATUS
 
-## System: CONDITIONAL DISCOVERY EXPERIMENT COMPLETE
-## Version: 17.0.0
+## System: CONDITIONAL DISCOVERY FIX COMPLETE
+## Version: 17.1.0
 ## Last Updated: 2026-08-18
 
 ## Deployed
 - UI + API: https://acid-api.rabotatony.workers.dev
 - Worker: v10 (17,995 bytes)
 
-## LATEST EXPERIMENT: Conditional Discovery (ACID v17)
+## LATEST EXPERIMENT: Conditional Discovery Fix (ACID v17.1)
 
-### Critical Finding: Known Solution Was Incorrect
-The known max_prog solution achieved 0/100 (bug in known solution).
-The search algorithms achieved fit=0.6 (better than known solution).
+### Known Max Solution: FIXED AND VERIFIED
+- Previous max_prog had a bug (JZ target wrong)
+- Fixed max_prog: 1000/1000 held-out, 30/30 adversarial
+- Substrate CAN express conditional operations
 
 ### Search Results
-- A (random): fit=0.6
-- B (evolutionary): fit=0.6
-- D (cap-guided): fit=0.6
-- Known solution: fit=0.0 (bug)
+- Evolutionary search: fit=0.6 after 50000 candidates
+- Search CANNOT find conditional branching patterns
+- Boundary: SEARCH COMPLEXITY FOR CONDITIONAL PATTERNS
 
-### Key Finding
-All three search systems achieved the same fit (0.6).
-None could discover conditional branching patterns.
-The boundary is SEARCH DEPTH FOR CONDITIONAL PATTERNS.
+### Composition Results
+- max(x0,x1)+x2: 490/1000 (partial)
+- Bug: JZ targets are absolute indices, break on extension
+- Composition of jump programs requires jump target adjustment
 
 ## Complete Experiment History
 1. Substrate + Search: PROVEN
@@ -37,17 +37,19 @@ The boundary is SEARCH DEPTH FOR CONDITIONAL PATTERNS.
 9. Open-Ended Discovery (evolutionary): PARTIAL (3/6)
 10. Capability-Guided Search: NOT TESTED (code error)
 11. Conditional Discovery: NOT PROVEN (fit=0.6)
+12. Conditional Discovery Fix: KNOWN SOLUTION VERIFIED, SEARCH FAILED
 
 ## Final Verdict
 SUBSTRATE-DERIVED CONSTRUCT DISCOVERY = PROVEN (3/6)
 EVOLUTIONARY > RANDOM SEARCH = PROVEN (3/6 vs 2/6)
-CAPABILITY-GUIDED > RAW SEARCH = NOT PROVEN (same fit)
-CONDITIONAL DISCOVERY = NOT PROVEN (fit=0.6)
+SUBSTRATE EXPRESSIVITY (CONDITIONAL) = PROVEN (1000/1000)
+SEARCH DISCOVERY OF CONDITIONAL PATTERNS = NOT PROVEN (fit=0.6)
+COMPOSITION OF JUMP PROGRAMS = PARTIAL (490/1000)
 OPEN-ENDED OPERATION DISCOVERY = NOT PROVEN
 GENERAL INTELLIGENCE = NO
 
 ## Remaining Bottleneck
-SEARCH DEPTH FOR CONDITIONAL PATTERNS.
+SEARCH COMPLEXITY FOR CONDITIONAL PATTERNS.
 The substrate CAN express conditional operations.
 The search CANNOT find them.
-This is a search complexity limitation, not representational.
+Composition of jump programs requires jump target adjustment.
