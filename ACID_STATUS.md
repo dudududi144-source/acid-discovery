@@ -1,50 +1,57 @@
 # ACID STATUS
 
 ## System: OPERATIONAL (with limitations)
-
 ## Version: 10.0.0
+## Last Updated: 2026-08-16
 
 ## Deployed
 - UI + API: https://acid-api.rabotatony.workers.dev
 - Worker: v10 (17,995 bytes)
 
-## Package: 27 modules (125KB)
+## Package: 28 modules (including repair.py)
 
-## Substrate: 20 primitives
+## Substrate: 20 primitives (FIXED)
 PUSH, POP, DUP, SWAP, ADD, SUB, MUL, MOD,
 GT, LT, EQ, AND, OR, NOT, JZ, READ, WRITE, STORE, LOAD, HALT
 
-## ARITHMETIC DOMAIN
-- Modular arithmetic (mod 1,000,000): PROVEN
-- Integer arithmetic: FAILED (negative sums wrap)
-- CLAIM = MODULAR ARITHMETIC ONLY
-
-## AUDIT FINDINGS (2026-08-16)
+## Experiment Results Summary
 
 ### PROVEN
-- Positive-domain solving: 10/10 tasks, 10000/10000 each
-- Modular arithmetic: 10000/10000 with negative inputs
-- Blind generalization: 10/10 tasks, 100000/100000
-- Reproducibility: 3/3 identical
-- Constant rejection: 93/93 rejected
+- Substrate execution: 100000/100000
+- Search > random: 84% vs 32%
+- Abstraction speedup: 369x (manual)
+- Composition: A+B > A, A+B > B (1000/1000)
+- Semantic abstraction: 1000/1000 unseen
+- Diagnostic repair (designed tasks): 10/10, 1000/1000 each
+- Counterfactual controls: all fail
+
+### SUPPORTED
+- Search-space factorization: 0.34 vs 0.20
+- Diagnostic repair concept: sound
+- Partial-credit scoring: enables structure discovery
+
+### FAILED
+- Repair generalization: 0/5 transfer
+- Repair seed robustness: 0/30
+- Repair composition: 0/1000
+- Capability frontier expansion: not achieved
+- Autonomous abstraction extraction: weak
+- Incremental construction: 0/8
 
 ### NOT PROVEN
-- Transfer (artifact = answer, this is retrieval)
-- Self-improvement (not monotonic)
-- Mutation contribution (0% = 50%)
-- Verification contribution (not needed for discovery)
-- Seed reliability (41/100 without artifact)
+- Capability accumulation
+- Recursive capability building
+- Cross-model transfer
+- Open-ended capability growth
 
-### COUNTEREXAMPLES FOUND
-1. Modulo assumption (negative sums wrap)
-2. Seed sensitivity (1/10 without artifact)
-3. Artifact = answer (retrieval, not transfer)
+## Key Bottleneck
+The hypothesis engine has a FIXED hypothesis space (4 types).
+It does not discover new hypothesis types from data.
+This prevents generalization to unseen task types.
 
-## CAUSAL MECHANISM
-
-The artifact IS the causal mechanism.
-The search provides 9pp improvement over random.
-Mutation, verification, transfer are not causal.
-
-## Last Updated
-2026-08-16
+## Next Steps
+1. Build symbolic regression for hypothesis discovery
+2. Implement active diagnosis (information-maximizing queries)
+3. Test repair on truly blind task suites
+4. Implement repair memory and reuse
+5. Test composition of repair mechanisms
