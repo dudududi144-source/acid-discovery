@@ -55,3 +55,25 @@ This prevents generalization to unseen task types.
 3. Test repair on truly blind task suites
 4. Implement repair memory and reuse
 5. Test composition of repair mechanisms
+
+
+## Hypothesis-Language Induction (2026-08-18)
+
+### BREAKTHROUGH (Partial)
+Symbolic regression DISCOVERS correct OOD relations:
+- Subtraction: ((x[0]+3)-(x[1]+3)) = x[0]-x[1], fitness 1.0
+- Doubling: (x[0]+actual) = 2*x[0], fitness 1.0
+- NO fixed hypothesis types used
+- Relations discovered from data alone
+
+### BOTTLENECK
+Expression-to-program compilation FAILS.
+Discovered expressions are correct but don't compile to working programs.
+Held-out: 1/1000 (subtraction), 2/1000 (doubling)
+
+### NEXT STEP
+Fix expression simplification + compilation.
+The system KNOWS the answer. It cannot yet BUILD the program.
+
+### Updated Module Count: 28
+Added: acid/repair.py (repair engine with hypothesis system)
