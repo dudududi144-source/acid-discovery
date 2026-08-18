@@ -60,3 +60,5 @@ __all__ = [
     "Config", "Config", "Config",
     "compute_hash", "format_duration", "format_number", "retry", "validate_inputs",
 ]
+
+from acid.repair import generate_hypotheses, apply_repair, repair_program
