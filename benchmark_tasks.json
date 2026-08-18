@@ -1,0 +1,272 @@
+[
+  {
+    "id": "alg_01",
+    "category": "algorithm_discovery",
+    "spec": "Given N integers, return the second largest value",
+    "input_len": 4,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "alg_02",
+    "category": "algorithm_discovery",
+    "spec": "Given N integers, return the count of even numbers",
+    "input_len": 4,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "alg_03",
+    "category": "algorithm_discovery",
+    "spec": "Given N integers, return the range (max minus min)",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "alg_04",
+    "category": "algorithm_discovery",
+    "spec": "Given N integers, return the median (middle value when sorted)",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "alg_05",
+    "category": "algorithm_discovery",
+    "spec": "Given N integers, return the sum of squares modulo 1000000",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "alg_06",
+    "category": "algorithm_discovery",
+    "spec": "Given N integers, return 1 if all are positive, else 0",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "alg_07",
+    "category": "algorithm_discovery",
+    "spec": "Given N integers, return the XOR of all values",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "alg_08",
+    "category": "algorithm_discovery",
+    "spec": "Given N integers, return the product of non-zero values mod 1000000",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "alg_09",
+    "category": "algorithm_discovery",
+    "spec": "Given N integers, return the weighted sum: 1*first + 2*second + 3*third",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "alg_10",
+    "category": "algorithm_discovery",
+    "spec": "Given N integers, return the absolute difference between first and last",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "comp_01",
+    "category": "algorithm_composition",
+    "spec": "Compute sum of inputs, then double the result",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "comp_02",
+    "category": "algorithm_composition",
+    "spec": "Compute max of inputs, then square it mod 1000000",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "comp_03",
+    "category": "algorithm_composition",
+    "spec": "Compute min, then add it to the sum of all inputs",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "comp_04",
+    "category": "algorithm_composition",
+    "spec": "Compute product of first two, add third",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "comp_05",
+    "category": "algorithm_composition",
+    "spec": "Compute sum, then check if result is even (return 1 or 0)",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "comp_06",
+    "category": "algorithm_composition",
+    "spec": "Compute absolute value of (first - second), multiply by third",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "comp_07",
+    "category": "algorithm_composition",
+    "spec": "Compute sum of squares, then take mod of product",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "comp_08",
+    "category": "algorithm_composition",
+    "spec": "Return max(a,b) + min(b,c) for three inputs",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "comp_09",
+    "category": "algorithm_composition",
+    "spec": "Compute (a+b)*(b+c) mod 1000000",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "comp_10",
+    "category": "algorithm_composition",
+    "spec": "Return a*a + b*b - c*c mod 1000000",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "rep_01",
+    "category": "program_repair",
+    "spec": "Given a broken sum (a+b-c), repair to correct sum (a+b+c)",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "rep_02",
+    "category": "program_repair",
+    "spec": "Given a broken product (a*b+c), repair to correct product (a*b*c)",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "rep_03",
+    "category": "program_repair",
+    "spec": "Transform: swap first and second, then sum all",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "rep_04",
+    "category": "program_repair",
+    "spec": "Transform: negate first input, add to sum of rest",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "rep_05",
+    "category": "program_repair",
+    "spec": "Transform: double each input, return sum",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "rep_06",
+    "category": "program_repair",
+    "spec": "Transform: return sum modulo the first input (handle zero)",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "rep_07",
+    "category": "program_repair",
+    "spec": "Transform: clamp sum to [0, 100] range",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "rep_08",
+    "category": "program_repair",
+    "spec": "Transform: return sum if positive, else return 0",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "rep_09",
+    "category": "program_repair",
+    "spec": "Transform: sort inputs, return middle value times 2",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  },
+  {
+    "id": "rep_10",
+    "category": "program_repair",
+    "spec": "Transform: return (max - min) * count_of_inputs",
+    "input_len": 3,
+    "train_count": 5,
+    "heldout_count": 1000,
+    "adversarial_count": 1000
+  }
+]
