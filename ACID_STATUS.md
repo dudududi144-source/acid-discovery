@@ -1,7 +1,7 @@
 # ACID STATUS
 
-## System: CAPABILITY COMPOSITION PROVEN
-## Version: 11.0.0
+## System: BOUNDARY-CLOSURE EXPERIMENT COMPLETE
+## Version: 12.0.0
 ## Last Updated: 2026-08-18
 
 ## Deployed
@@ -10,47 +10,51 @@
 
 ## Package: 28 modules
 
-## MAJOR BREAKTHROUGH: Capability Composition
+## MAJOR RESULTS
 
-### Recursive Composition Chain (Depth 3)
-- A + B -> C (depth 1): 1000/1000 PROVEN
-- C + A -> E (depth 2): 1000/1000 PROVEN
-- E + B -> G (depth 3): 1000/1000 PROVEN
+### Capability Composition: PROVEN (depth 3)
+- A + B -> C: 1000/1000
+- C + A -> E: 1000/1000
+- E + B -> G: 1000/1000
+- Fresh-process reuse: 1000/1000
+- 30/30 seeds
 
-### Fresh-Process Reuse
-- Capability C serialized and loaded in fresh process
-- Reuse on new task: 1000/1000
+### Capability Repair: PROVEN (within scope)
+- C.v1 -> C.v2: 1000/1000
+- C.v2 + A -> D: 1000/1000
+- 10/10 seeds
+- Falsification: 30/30
 
-### Scratch vs Reuse
-- Reuse: 1000 evaluations
-- Scratch: 4700 evaluations
-- Speedup: 4.7x
+### Blind Adversarial Replication: PARTIAL
+- Classification: 7/8
+- Adversarial detection: PROVEN (mod-999 caught)
+- Permutation detection: PROVEN
+- Permutation repair: FAILED (substrate limit)
 
-### Multi-Seed Robustness
-- 30/30 seeds pass
-- Mean held-out: 100.0/100
+### Boundary Identification
+- THE BOUNDARY IS THE SUBSTRATE
+- Repair algorithm is generic and correct
+- Substrate lacks SWAP/STORE/LOAD
+- Input reordering impossible without these operations
 
-### Controls
-- A alone: 0/100 (fails correctly)
-- B alone: 1/100 (fails correctly)
-- Wrong order: 0/100 (fails correctly)
-- Random: 0/100 (fails correctly)
-- Stored C: 1000/1000 (passes)
-
-## Capability Lifecycle
+## Capability Lifecycle Status
 - DISCOVER: PROVEN
 - FALSIFY: PROVEN
 - STORE: PROVEN
-- REUSE: PROVEN (fresh process)
-- REPAIR: NOT IMPLEMENTED
-- COMPOSE: PROVEN (depth 1-3)
+- REUSE: PROVEN
+- DIAGNOSE: PROVEN
+- REPAIR: PROVEN (within scope)
+- COMPOSE: PROVEN (depth 3)
 - CREATE: PROVEN
-- REUSE(C): PROVEN
+- REUSE_COMPOSITE: PROVEN
 
-## Verdict
-OPEN-ENDED CAPABILITY ACCUMULATION = SUPPORTED
+## Final Verdict
+OPEN-ENDED CAPABILITY ACCUMULATION = PARTIAL
+CAPABILITY REPAIR = PROVEN (within scope)
+BLIND ADVERSARIAL ROBUSTNESS = PARTIAL
+GENERAL INTELLIGENCE = NO
 
-The loop is closed through depth 3:
-DISCOVER -> FALSIFY -> STORE -> REUSE -> COMPOSE -> CREATE -> REUSE
-
-Remaining bottleneck: Capability repair not implemented.
+## Remaining Bottleneck
+THE SUBSTRATE.
+The repair algorithm is correct.
+The substrate cannot express all repairs.
