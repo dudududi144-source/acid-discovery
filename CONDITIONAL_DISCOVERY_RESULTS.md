@@ -1,113 +1,113 @@
-# ACID v17 Fix: Correct Max Program + Search Results
+# ACID v18: Jump Target Relocation + Conditional Search Results
 
 ## Date: 2026-08-18
 
-## KNOWN MAX SOLUTION: FIXED AND VERIFIED
+## JUMP COMPOSITION: PROVEN (1000/1000)
 
-The previous max_prog had a bug (JZ target pointed to H instead of false branch).
-The fixed max_prog works perfectly:
+The JZ target relocation fixed the composition bug.
+max(x0,x1)+x2 now works perfectly:
+- 100/100 discovery tests
+- 1000/1000 held-out tests
+- 30/30 adversarial tests
+- 1000/1000 fresh-process reuse
 
-- Manual trace: 4/4 PASS
-- 100 random tests: 100/100
-- 1000 held-out tests: 1000/1000
-- 30 adversarial tests: 30/30 pass, 0 fail
+Controls all fail correctly:
+- max alone (wrong arity): 0/100
+- add alone (wrong arity): 0/100
+- random: 0/100
 
-The substrate CAN express conditional operations.
-The known solution is correct and verified.
+## COMPOSITION DEPTH 3: FAILED (493/1000)
 
-## SEARCH RESULTS
+(max(x0,x1)+x2)*x3: 493/1000
+The depth 3 composition still has issues.
+The JZ target relocation for depth 3 is more complex.
+The false branch JZ target needs additional adjustment.
 
-Evolutionary search with:
-- Population: 100
-- Generations: 500
-- Candidates tested: 50000
-- Best fit: 0.6 (6/10 discovery examples)
+## CONDITIONAL DISCOVERY: NOT PROVEN
 
-The search CANNOT achieve fit=1.0.
-The search CANNOT discover conditional branching patterns.
+Specialized conditional search:
+- max(x0,x1): fit=0.6 (same as evolutionary search)
+- abs(x0-x1): fit=0.0 (template search failed)
 
-This confirms: SEARCH DEPTH FOR CONDITIONAL PATTERNS is the boundary.
+The template-based search did NOT improve over evolutionary search.
+The search still cannot find conditional patterns.
 
-The search space for conditional patterns is enormous because:
-1. JZ jump target must be exactly correct
-2. Stack management must be correct for both branches
-3. The program must have the right structure (ST/LD for saving inputs)
-4. The search space grows exponentially with program length
+The boundary remains: SEARCH COMPLEXITY FOR CONDITIONAL PATTERNS.
 
-## COMPOSITION RESULTS
+## COMPARISON WITH v17.1
 
-max(x0,x1) + x2: 490/1000
-
-The composition partially works but has a bug:
-The JZ jump target in max_body is an absolute index.
-When the program is extended with R(2), A(0), W(0), H(0),
-the JZ target points to the wrong instruction.
-
-This is a REPRESENTATIONAL limitation of the current
-composition mechanism. Programs with jumps cannot be
-naively composed because jump targets are absolute.
+| Metric | v17.1 | v18 | Status |
+|--------|-------|-----|--------|
+| Composition max+x2 | 490/1000 | 1000/1000 | FIXED |
+| Composition depth 3 | N/A | 493/1000 | FAILED |
+| Conditional discovery (max) | fit=0.6 | fit=0.6 | NOT IMPROVED |
+| Conditional discovery (abs) | N/A | fit=0.0 | NOT PROVEN |
 
 ## KEY FINDINGS
 
-### 1. SUBSTRATE EXPRESSIVITY: CONFIRMED
-The substrate CAN express conditional operations.
-The known max solution works perfectly (1000/1000).
+### 1. JUMP COMPOSITION IS NOW PROVEN
+The JZ target relocation fixed the composition bug.
+Programs with JZ can now be composed correctly at depth 2.
 
-### 2. SEARCH CANNOT FIND CONDITIONAL PATTERNS
-Even with 50000 candidates, evolutionary search cannot
-find conditional branching patterns. Best fit: 0.6.
+### 2. DEPTH 3 COMPOSITION STILL BROKEN
+The depth 3 composition has a more complex JZ target issue.
+The false branch JZ target needs additional adjustment
+when the continuation code is longer.
 
-### 3. COMPOSITION OF JUMP PROGRAMS IS BROKEN
-Programs with JZ cannot be naively composed because
-jump targets are absolute indices.
+### 3. CONDITIONAL DISCOVERY NOT IMPROVED
+The specialized conditional search did NOT improve over
+evolutionary search. The template-based approach did not
+help discover conditional patterns.
 
-### 4. THE BOUNDARY IS SEARCH COMPLEXITY
-The substrate can express conditional operations.
-The search cannot find them.
-This is a SEARCH COMPLEXITY limitation, not representational.
+The boundary remains: SEARCH COMPLEXITY FOR CONDITIONAL PATTERNS.
+
+### 4. THE FUNDAMENTAL ISSUE
+The search cannot find conditional patterns because:
+1. The search space is enormous
+2. JZ targets must be exactly correct
+3. Stack management must be correct for both branches
+4. The program must have the right structure (ST/LD)
+
+Template-based search did not help because:
+1. The templates still need correct JZ targets
+2. The templates still need correct stack management
+3. The search space is still enormous
 
 ## CLAIMS TABLE
 
 | Claim | Status |
 |-------|--------|
-| Known max solution (fixed) | PROVEN (1000/1000) |
-| Independent falsification | PROVEN (30/30) |
-| Conditional capability discovery | NOT PROVEN (fit=0.6) |
-| Discovered program held-out | FAILED (0/1000) |
-| Composition (max + add) | PARTIAL (490/1000) |
-| Frontier expansion | NOT PROVEN |
-
-## FAILURE ANALYSIS
-
-The search cannot discover conditional patterns because:
-1. The search space is enormous (exponential in program length)
-2. JZ jump targets must be exactly correct
-3. Stack management must be correct for both branches
-4. The program must have the right structure (ST/LD)
-
-The composition of jump programs is broken because:
-1. JZ targets are absolute indices
-2. Extending a program changes instruction indices
-3. Jump targets point to wrong instructions after extension
+| Jump target relocation | PROVEN (1000/1000) |
+| Composition depth 2 | PROVEN (1000/1000) |
+| Composition depth 3 | FAILED (493/1000) |
+| Conditional discovery (max) | NOT PROVEN (fit=0.6) |
+| Conditional discovery (abs) | NOT PROVEN (fit=0.0) |
+| Conditional discovery (min) | NOT TESTED |
+| Conditional discovery (clamp) | NOT TESTED |
+| Adversarial validation | PROVEN (30/30) |
+| Fresh-process reuse | PROVEN (1000/1000) |
+| Controls fail correctly | PROVEN |
+| Open-ended operation discovery | NOT PROVEN |
+| General intelligence | NO |
 
 ## FINAL VERDICT
 
-SUBSTRATE EXPRESSIVITY = PROVEN (conditional operations expressible)
-SEARCH DISCOVERY OF CONDITIONAL PATTERNS = NOT PROVEN
-COMPOSITION OF JUMP PROGRAMS = PARTIAL (490/1000)
-OPEN-ENDED OPERATION DISCOVERY = NOT PROVEN
+JUMP COMPOSITION = PROVEN (1000/1000)
+CONDITIONAL CAPABILITY DISCOVERY = NOT PROVEN
+OPEN-ENDED CAPABILITY DISCOVERY = NOT PROVEN
 GENERAL INTELLIGENCE = NO
+
+The JZ target relocation fixed the composition bug.
+Programs with JZ can now be composed at depth 2.
+But conditional discovery remains NOT PROVEN.
 
 The boundary is SEARCH COMPLEXITY FOR CONDITIONAL PATTERNS.
 The substrate CAN express conditional operations.
 The search CANNOT find them.
-Composition of jump programs requires jump target adjustment.
+Template-based search did not improve discovery.
 
 NEXT HIGHEST-INFORMATION EXPERIMENT:
-  Implement jump target adjustment for composition.
-  When composing programs with JZ, adjust jump targets
-  based on the new program length.
-  
-  Alternatively: implement a specialized conditional-pattern
-  search that explicitly tries GT/LT + JZ combinations
-  with correct jump targets.
+  Fix depth 3 composition (JZ target for false branch).
+  Implement a more sophisticated conditional search that
+  explicitly constructs GT/LT + JZ patterns with correct
+  jump targets and stack management.
