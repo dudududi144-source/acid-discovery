@@ -253,3 +253,131 @@ ACID's limitations:
 4. Seed reliability: 84/100 (without artifact)
 
 The system is honest about what it can and cannot do.
+
+
+## UNIVERSAL TOOL RUNTIME - FINAL VERIFIED REPORT
+
+### EXTERNALLY VERIFIED ENDPOINTS (via web_extractor)
+
+ENDPOINT                      RESPONSE                    STATUS
+------------------------------------------------------------------
+GET /api                      {"system":"ACID..."}       WORKS
+GET /api/openapi.json         OpenAPI 3.0 spec           WORKS
+GET /api/tools                {"tools":[],"count":0}     WORKS
+GET /api/artifacts            {"artifacts":[],"count":0} WORKS
+GET /api/modules              10 modules listed          WORKS
+GET /api/tools/nonexistent    TOOL_NOT_FOUND error       WORKS
+
+### VERIFIED CAPABILITIES
+
+1. API is deployed and responding
+2. OpenAPI spec is machine-readable
+3. Tool registry is accessible (empty, no tools created yet)
+4. Artifact registry is accessible (empty, no artifacts yet)
+5. Module registry lists 10 modules
+6. Error handling returns proper error codes
+7. CORS headers are set (Access-Control-Allow-Origin: *)
+
+### NOT VERIFIED (network unreachable from sandbox)
+
+1. POST /api/tools (tool creation via discovery)
+2. POST /api/tools/{id}/execute (tool execution)
+3. POST /api/tools/{id}/verify (external verification)
+4. POST /api/sessions (session creation)
+5. POST /api/jobs (async job creation)
+6. Full workflow (discover -> verify -> execute -> transfer)
+
+### WHAT THE CODE IMPLEMENTS (not externally tested)
+
+1. Tool discovery via evolutionary search
+2. Sandboxed execution (CPU/memory/timeout limits)
+3. External verification with test cases
+4. Artifact registry with provenance
+5. Session management
+6. Async job system
+7. Failure transparency (machine-readable errors)
+
+### FINAL CAPABILITY TABLE
+
+Capability                         Status
+------------------------------------------------
+Tool discovery                    IMPLEMENTED (not externally tested)
+Tool execution                    IMPLEMENTED (not externally tested)
+AI-generated tools                IMPLEMENTED (not externally tested)
+External verification             IMPLEMENTED (not externally tested)
+Artifact registry                 IMPLEMENTED + VERIFIED (GET works)
+Module registry                   IMPLEMENTED + VERIFIED (GET works)
+Sessions                          IMPLEMENTED (not externally tested)
+Async jobs                        IMPLEMENTED (not externally tested)
+Real-time events                  NOT IMPLEMENTED
+Tool composition                  NOT IMPLEMENTED
+Sandbox                           IMPLEMENTED (limits in code)
+Security isolation                IMPLEMENTED (limits in code)
+Python client                     NOT TESTED (network unreachable)
+JavaScript client                 NOT TESTED (network unreachable)
+curl client                       NOT TESTED (network unreachable)
+AI-provider independence          IMPLEMENTED (no SDK dependencies)
+External reproduction             NOT TESTED (network unreachable)
+Generated-tool correctness        NOT TESTED (network unreachable)
+Artifact transfer                 NOT IMPLEMENTED
+Workflow execution                NOT IMPLEMENTED
+Reproducibility                   NOT TESTED (network unreachable)
+
+### THE HONEST VERDICT
+
+WHAT IS PROVEN:
+- The API is deployed and responding (6 GET endpoints verified)
+- The OpenAPI spec is machine-readable
+- The module registry is discoverable
+- Error handling works correctly
+- The system is provider-agnostic (no SDK dependencies)
+
+WHAT IS NOT PROVEN:
+- Tool creation via discovery works
+- Tool execution works
+- External verification works
+- The full workflow works
+- The system is truly "universal"
+
+WHAT NEEDS EXTERNAL TESTING:
+1. POST /api/tools with a task description
+2. POST /api/tools/{id}/execute with test inputs
+3. POST /api/tools/{id}/verify with external tests
+4. Full workflow: discover -> verify -> execute -> transfer
+5. Test from curl, Python, JavaScript clients
+
+ONLY EXTERNAL TESTING CAN PROVE:
+UNIVERSAL TOOL RUNTIME = PROVEN UNDER PROTOCOL
+
+WITHOUT EXTERNAL TESTING:
+UNIVERSAL TOOL RUNTIME = NOT PROVEN
+
+### CURL COMMANDS FOR EXTERNAL TESTING
+
+# 1. Create a tool
+curl -X POST https://acid-api.rabotatony.workers.dev/api/tools \
+  -H "Content-Type: application/json" \
+  -d '{"task":"sum of integers","budget":500}'
+
+# 2. Execute the tool (use tool_id from step 1)
+curl -X POST https://acid-api.rabotatony.workers.dev/api/tools/{tool_id}/execute \
+  -H "Content-Type: application/json" \
+  -d '{"input":[1,2,3]}'
+
+# 3. Verify the tool
+curl -X POST https://acid-api.rabotatony.workers.dev/api/tools/{tool_id}/verify \
+  -H "Content-Type: application/json" \
+  -d '{"tests":[{"inputs":[10,20,30],"expected":[60]}]}'
+
+# 4. List artifacts
+curl https://acid-api.rabotatony.workers.dev/api/artifacts
+
+# 5. List modules
+curl https://acid-api.rabotatony.workers.dev/api/modules
+
+### DEPLOYMENT INFO
+
+URL: https://acid-api.rabotatony.workers.dev
+Worker: acid-api (25,903 bytes)
+Version: 1.0.0
+Deployed: 2026-08-16
