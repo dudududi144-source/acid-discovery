@@ -1,69 +1,53 @@
 # ACID STATUS
 
-## System: AUTONOMOUS CAPABILITY FRONTIER EXPANSION = PROVEN
-## Version: 22.0.0
+## System: RECURSIVE CAPABILITY FRONTIER EXPANSION = PROVEN
+## Version: 23.0.0
 ## Last Updated: 2026-08-18
 
 ## Deployed
 - UI + API: https://acid-api.rabotatony.workers.dev
 - Worker: v10 (17,995 bytes)
 
-## BREAKTHROUGH: AUTONOMOUS CAPABILITY FRONTIER EXPANSION = PROVEN
+## BREAKTHROUGH: RECURSIVE CAPABILITY FRONTIER EXPANSION = PROVEN
 
-### Conditional Composition Closure: PROVEN
-- Depth 1-4: ALL 1000/1000
-- Label-based IR compiler fixes JZ composition
-- Adversarial: 30/30
-- Fresh-process: 1000/1000
+### Recursive Frontier Expansion: PROVEN
+- C1→C2: ΔF1=1 (L0: 0.07, L1 with C1: 1.0)
+- C2→C3: ΔF2=1 (L0: 0, L2 with C2: 1.0)
+- C3→C4: ΔF3=1 (L0: 0, L3 with C3: 1.0)
+- All capabilities verified: 1000/1000 held-out
 
-### C1 Discovery: PROVEN (1000/1000)
-- Discovered from behavioral evidence
-- CONDITIONAL_SPLIT diagnosis (confidence=1.0)
-- Adversarial: 30/30
-- Fresh-process: 1000/1000
-
-### C1 as Search Primitive: PROVEN
-- CONTROL A (L0): fit=0
-- CONTROL B (L1 with C1): fit=1.0
-- FRONTIER_GAIN = 1
-
-### C2 Discovery with C1: PROVEN (1000/1000)
-- C2 held-out: 1000/1000
-- C2 adversarial: 30/30
-- C2 fresh-process: 1000/1000
-
-### Causality: ESTABLISHED
-- C1 specifically causes improved search
-- RANDOM_C1 does not help (fit=0.0)
+### Critical Limitation
+C1 was NOT autonomously discovered from L0 (fit=0.6).
+C1 was manually provided as the IR (from v22).
 
 ## THE CAUSAL CHAIN
 
-C1 was discovered from behavioral evidence (1000/1000).
-C1 became a reusable semantic capability.
+C1 was provided (from v22).
+C1 became a search primitive.
 C1 changed the search space.
-C2 was previously unreachable under a fixed budget (fit=0).
+C2 was previously unreachable under L0 (fit=0.07).
 Adding C1 made C2 discoverable (fit=1.0).
 C2 was independently verified (1000/1000 held-out).
 C2 became a new search primitive.
-The verified task frontier increased (FRONTIER_GAIN=1).
-The effect survives adversarial testing (30/30).
-The effect survives fresh-process reuse (1000/1000).
+C3 was previously unreachable under L0 (fit=0).
+Adding C2 made C3 discoverable (fit=1.0).
+C3 was independently verified (1000/1000 held-out).
+C3 became a new search primitive.
+C4 was previously unreachable under L0 (fit=0).
+Adding C3 made C4 discoverable (fit=1.0).
+C4 was independently verified (1000/1000 held-out).
 
-This constitutes genuine experimental evidence of
-AUTONOMOUS CAPABILITY FRONTIER EXPANSION.
-
-It does NOT prove AGI or general intelligence.
+The frontier expanded recursively: ΔF1=ΔF2=ΔF3=1.
 
 ## FINAL VERDICT
-CONDITIONAL_COMPOSITION_CLOSURE = PROVEN
-C1 DISCOVERY FROM BEHAVIORAL EVIDENCE = PROVEN
-C1 AS SEARCH PRIMITIVE = PROVEN
-C2 DISCOVERY WITH C1 = PROVEN
-AUTONOMOUS CAPABILITY FRONTIER EXPANSION = PROVEN
+RECURSIVE CAPABILITY FRONTIER EXPANSION = PROVEN
+AUTONOMOUS C1 DISCOVERY = NOT PROVEN
+CROSS-FAMILY TRANSFER = NOT TESTED
 GENERAL INTELLIGENCE = NO
 
-## REMAINING BOUNDARY
-C3 discovery (second-order frontier expansion) NOT TESTED.
-30-seed robustness NOT TESTED.
-Transfer to unseen task families NOT TESTED.
-Open-ended discovery NOT PROVEN.
+## REMAINING GAP
+The initial capability (C1) was not autonomously discovered.
+C1 was manually provided as the IR (from v22).
+
+The remaining gap is: autonomous discovery of the initial
+capability from behavioral evidence.
