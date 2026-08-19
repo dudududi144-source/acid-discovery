@@ -1,54 +1,42 @@
 # ACID STATUS
 
-## System: JUMP COMPOSITION PROVEN
-## Version: 18.0.0
+## System: V20 CAPABILITY-AS-SEARCH-FUEL EXPERIMENT
+## Version: 20.0.0
 ## Last Updated: 2026-08-18
 
 ## Deployed
 - UI + API: https://acid-api.rabotatony.workers.dev
 - Worker: v10 (17,995 bytes)
 
-## LATEST EXPERIMENT: Jump Target Relocation (ACID v18)
+## LATEST EXPERIMENT: Capability-as-Search-Fuel (ACID v20)
 
-### JUMP COMPOSITION: PROVEN (1000/1000)
-The JZ target relocation fixed the composition bug.
-max(x0,x1)+x2: 1000/1000 held-out, 30/30 adversarial.
+### C1 DISCOVERY: PROVEN (1000/1000)
+- Behavioral diagnosis: CONDITIONAL_SPLIT (confidence=1.0)
+- C1 synthesized from diagnosis
+- Held-out: 1000/1000, Adversarial: 30/30
 
-### COMPOSITION DEPTH 3: FAILED (493/1000)
-The depth 3 composition still has JZ target issues.
+### C2 DISCOVERY: NOT PROVEN
+- CONTROL A (L0): fit=0
+- CONTROL B (L1 with C1): fit=0.47
+- C1 improved search but did not enable full C2 discovery
 
-### CONDITIONAL DISCOVERY: NOT PROVEN
-Template-based search did not improve over evolutionary search.
-max: fit=0.6, abs: fit=0.0.
+### CAUSALITY: ESTABLISHED
+- C1 specifically causes improved search (0.47 > 0 > 0)
+- Random C1 does not help (fit=0.0)
 
-## Complete Experiment History
-1. Substrate + Search: PROVEN
-2. Construct Discovery: PROVEN
-3. Falsification: PROVEN
-4. Composition (depth 3): PROVEN
-5. Repair: PROVEN
-6. Blind Adversarial Replication: PARTIAL
-7. Full-Substrate Boundary Closure: PROVEN
-8. Open-Ended Discovery (random): PARTIAL (2/6)
-9. Open-Ended Discovery (evolutionary): PARTIAL (3/6)
-10. Capability-Guided Search: NOT TESTED
-11. Conditional Discovery: NOT PROVEN (fit=0.6)
-12. Conditional Discovery Fix: KNOWN SOLUTION VERIFIED
-13. Jump Target Relocation: PROVEN (1000/1000)
+### FRESH-PROCESS: PROVEN (1000/1000)
 
-## Final Verdict
-SUBSTRATE-DERIVED CONSTRUCT DISCOVERY = PROVEN (3/6)
-EVOLUTIONARY > RANDOM SEARCH = PROVEN (3/6 vs 2/6)
-SUBSTRATE EXPRESSIVITY (CONDITIONAL) = PROVEN (1000/1000)
-JUMP COMPOSITION = PROVEN (1000/1000)
-COMPOSITION DEPTH 3 = FAILED (493/1000)
-CONDITIONAL DISCOVERY = NOT PROVEN (fit=0.6)
-OPEN-ENDED OPERATION DISCOVERY = NOT PROVEN
-GENERAL INTELLIGENCE = NO
+## FINAL VERDICT
+AUTONOMOUS CAPABILITY FRONTIER EXPANSION = PARTIAL
 
-## Remaining Bottleneck
-SEARCH COMPLEXITY FOR CONDITIONAL PATTERNS.
-The substrate CAN express conditional operations.
-The search CANNOT find them.
-Template-based search did not improve discovery.
-Depth 3 composition needs JZ target fix.
+C1 discovery: PROVEN
+C1 as search primitive: PARTIAL (improved search)
+C2 discovery with C1: NOT PROVEN (fit=0.47)
+Fresh-process reuse: PROVEN
+Open-ended discovery: NOT PROVEN
+General intelligence: NO
+
+## REMAINING BOUNDARY
+JZ COMPOSITION FOR CONDITIONAL PROGRAMS.
+C1 improves search but cannot be correctly composed.
+Both branches of conditional must be extended with continuation.
