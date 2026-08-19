@@ -1,0 +1,4 @@
+optuna>=3.0.0
+nevergrad>=0.7.0
+deap>=1.4.0
+prisma>=0.1.0
