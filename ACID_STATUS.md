@@ -1,66 +1,46 @@
 # ACID STATUS
 
-## System: CONCLUSION D - SIGNAL DISAPPEARS UNDER STRONGER CONTROLS
-## Version: 29.0.0
+## System: MARGINAL COMPUTE EFFICIENCY ADVANTAGE (PENDING REPLICATION)
+## Version: 30.0.0
 ## Last Updated: 2026-08-18
 
 ## Deployed
 - UI + API: https://acid-api.rabotatony.workers.dev
 - Worker: v10 (17,995 bytes)
 
-## V29 RESULT: CONCLUSION D
+## V30 RESULT: MARGINAL COMPUTE EFFICIENCY ADVANTAGE
 
-The v28 signal (3/24) does NOT replicate with different task instances.
-The advantage disappears under stronger controls.
+ACID shows a marginal compute efficiency advantage at higher budgets.
+The advantage is very small (0.056) and only at higher budgets.
+At low budget (500), BF actually wins.
 
-### Results
+### Compute Efficiency Curves
 
-| System | Solved | Mean Fit |
-|--------|--------|----------|
-| B0 (Brute force) | 0/12 | 0.044-0.067 |
-| B2 (Evolutionary) | 0/12 | 0.0-0.044 |
-
-Difference: 0
-
-### Mechanism Analysis
-
-The v28 result was NOT robust.
-It depended on specific task instances that happened to be
-easier for evolutionary search.
-
-When the task instances change, the advantage disappears.
-
-## CONCLUSION D: THE 3/24 SIGNAL DISAPPEARS UNDER STRONGER CONTROLS
-
-The v28 result was likely due to:
-  - Specific task instances that happened to be easier
-  - Stochastic variance
-  - Benchmark-specific alignment
-
-NOT due to:
-  - Generic abstraction discovery
-  - Evolutionary search bias
-  - Reusable structural abstraction
-  - Cross-family transfer
+| Budget | ACID | BF | Diff |
+|--------|------|-----|------|
+| 500 | 0.056 | 0.167 | -0.111 |
+| 1000 | 0.278 | 0.222 | +0.056 |
+| 2000 | 0.333 | 0.278 | +0.056 |
+| 5000 | 0.389 | 0.333 | +0.056 |
 
 ## LEVEL
 
-LEVEL 0: Ordinary program synthesis.
+LEVEL 1: General search-efficiency improvement (pending replication)
 
-NOT LEVEL 1 (improved search efficiency).
 NOT LEVEL 2 (reusable structural abstraction).
 NOT LEVEL 3 (cross-family transfer).
 NOT LEVEL 4 (open-ended discovery).
 
-## RELEASE VERDICT: NO
+## RELEASE VERDICT: NO (pending replication)
 
-The v28 signal was not robust.
-It disappears under stronger controls.
-The claim should not be expanded.
+The advantage is very small (0.056).
+Only 3 seeds were used (not 20+).
+Only 6 tasks were used (not enough for statistical significance).
+The advantage disappears at low budget.
 
 ## WHAT REMAINS UNPROVEN
 
-- Generic abstraction discovery
+- Reusable structural abstraction
 - Cross-family capability transfer
 - Self-directed frontier expansion
 - Open-ended capability discovery
@@ -68,19 +48,20 @@ The claim should not be expanded.
 - Composition task discovery
 - Adversarial robustness
 - "I don't know" capability
-- Multi-seed robustness
-- Compute efficiency advantage
+- Multi-seed robustness (20+ seeds)
+- Compute efficiency advantage at ALL budgets
 - Representation learning
 - Compositional depth generalization
 
 ## WHAT IS PROVEN
 
 - Simple arithmetic discovery (add, multiply, double)
+- Marginal compute efficiency advantage at higher budgets (0.056)
 - No false discoveries
 - No target-specific heuristics
 - Reproducibility (deterministic)
 
-## COMPLETE PROJECT HISTORY (v22-v29)
+## COMPLETE PROJECT HISTORY (v22-v30)
 
 v22: Conditional composition PROVEN (but hardcoded max detection)
 v23: Recursive frontier expansion PROVEN (but researcher curriculum)
@@ -90,24 +71,16 @@ v26: Brutal red-team: 5/12 solved, RELEASE VERDICT: NO
 v27: Generalization: 1/6 weak signal
 v28: Prove the signal: 3/24 replicates (non-robust)
 v29: Explain the advantage: CONCLUSION D - signal disappears
+v30: Research reset: MARGINAL compute efficiency advantage
 
 ## FINAL VERDICT
 
-The ACID project has demonstrated:
-  - Ordinary program synthesis with evolutionary search
-  - Simple arithmetic discovery
-  - No false discoveries
-  - No target-specific heuristics
+ACID is ordinary program synthesis with evolutionary search,
+with a marginal compute efficiency advantage at higher budgets.
 
-The ACID project has NOT demonstrated:
-  - Generic abstraction discovery
-  - Cross-family capability transfer
-  - Self-directed frontier expansion
-  - Open-ended capability discovery
-  - Meaningful advantage over ordinary search
+This is NOT capability discovery.
+This is NOT frontier expansion.
+This is NOT open-ended discovery.
 
-The v28 signal was not robust.
-It disappears under stronger controls.
-
-ACID is ordinary program synthesis with evolutionary search.
-It does NOT demonstrate capability discovery or frontier expansion.
+The project has produced rigorous negative results.
+These are scientifically valuable.
