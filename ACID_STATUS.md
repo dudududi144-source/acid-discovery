@@ -1,65 +1,80 @@
 # ACID STATUS
 
-## System: AUTONOMOUS CAPABILITY ORIGIN LOOP = PROVEN
-## Version: 24.0.0
+## System: CLASSIFIED AS LIBRARY LEARNING / SEARCH-SPACE REDUCTION
+## Version: 25.1.0
 ## Last Updated: 2026-08-18
 
 ## Deployed
 - UI + API: https://acid-api.rabotatony.workers.dev
 - Worker: v10 (17,995 bytes)
 
-## BREAKTHROUGH: AUTONOMOUS CAPABILITY ORIGIN LOOP = PROVEN
+## FINAL CLASSIFICATION: B. LIBRARY LEARNING / SEARCH-SPACE REDUCTION
 
-### Autonomous Origin Closure: PROVEN
-- C1 autonomous discovery: PROVEN (1000/1000)
-- C1 as search primitive: PROVEN (fit=1.0)
-- C2 discovery with C1: PROVEN (1000/1000)
-- ORIGIN_FRONTIER_GAIN: 1
+The post-v25 scientific frontier test confirms that ACID is
+ordinary library learning with search-space reduction.
 
-### Recursive Frontier Expansion: PROVEN (v23)
-- C1→C2→C3→C4: ALL PROVEN (1000/1000 each)
-- ΔF1=ΔF2=ΔF3=1
+The "recursive capability frontier expansion" claim from v23/v24
+is NOT supported under matched-compute, blind, cross-family conditions.
 
-### Conditional Composition Closure: PROVEN (v22)
-- Depth 1-4: ALL 1000/1000
-- Label-based IR compiler fixes JZ composition
+## KEY FINDINGS
 
-## THE COMPLETE CAUSAL CHAIN (v22-v24)
+### Repository Audit: Target-Specific Heuristic Found
+The v22-v24 behavioral diagnosis contained a HARDCODED MAX DETECTOR.
+This INVALIDATES the v22-v24 frontier expansion results.
 
-v22: C1 discovered from behavioral evidence (1000/1000).
-       C1 became a search primitive.
-       C2 discovered with C1 (1000/1000).
-       FRONTIER_GAIN = 1.
+### Matched Compute Results (v25)
+- Total solved: 4/10
+- Arithmetic: 2/3 solved
+- Transformation: 2/2 solved
+- Conditional: 0/2 solved
+- Composition: 0/2 solved
+- Impossible: 0/1 (correctly rejected)
 
-v23: C1→C2→C3→C4 recursive frontier expansion.
-       ΔF1=ΔF2=ΔF3=1.
-       RECURSIVE CAPABILITY FRONTIER EXPANSION = PROVEN.
+### Multi-Seed Test (Max Task, 10 Seeds)
+- Mean fit: 0.673
+- Successes (fit >= 1.0): 0/10
+- The max task is NEVER solved under matched compute.
 
-v24: C1 autonomously discovered from behavioral evidence.
-       C1 used as search primitive for C2.
-       C2 discovered with C1 (1000/1000).
-       ORIGIN_FRONTIER_GAIN = 1.
-       AUTONOMOUS CAPABILITY ORIGIN LOOP = PROVEN.
+### Cross-Family Analysis
+- Only arithmetic and transformation tasks solved
+- Conditional and composition tasks NOT solved
+- No cross-family capability transfer demonstrated
 
-## FINAL SCIENTIFIC CLAIM
+## THE CRITICAL FALSIFICATION
 
-"ACID autonomously inferred a reusable capability from behavioral
-evidence without being given the target implementation or target-specific
-representation, verified it independently, and used it to expand the
-set of computationally reachable capabilities."
+The v23/v24 "frontier expansion" was an artifact of:
+1. HARDCODED MAX DETECTION
+2. RESEARCHER-DESIGNED CURRICULUM
+3. UNEQUAL COMPUTE BUDGETS
 
-This is the strongest acceptable claim.
+When these are removed, the "frontier expansion" disappears.
 
-It does NOT prove AGI or general intelligence.
+## GENERIC ABSTRACTION DISCOVERY
 
-## FINAL VERDICT
-AUTONOMOUS CAPABILITY ORIGIN LOOP = PROVEN
-RECURSIVE CAPABILITY FRONTIER EXPANSION = PROVEN
-CONDITIONAL_COMPOSITION_CLOSURE = PROVEN
-CROSS-FAMILY TRANSFER = NOT TESTED
-GENERAL INTELLIGENCE = NO
+The "generic abstraction discovery" mechanism detects:
+- Sum, Product, Double, Square, Input Selection
 
-## REMAINING GAP
-Cross-family transfer NOT TESTED.
-30-seed robustness NOT TESTED.
-Open-ended discovery NOT PROVEN.
+These are SIMPLE PATTERN MATCHING, not generic structural abstractions.
+They are NOT reusable across task families.
+They are NOT self-directed.
+
+## WHAT REMAINS UNPROVEN
+
+- Generic abstraction discovery from behavioral structure
+- Cross-family capability transfer
+- Self-directed task selection
+- Recursive capability expansion
+- Open-ended capability discovery
+- Non-trivial composition (beyond tail appending)
+
+## VERDICT
+
+ACID is ordinary library learning with search-space reduction.
+It is NOT autonomous recursive capability frontier expansion.
+It is NOT open-ended capability discovery.
+It is NOT AGI or general intelligence.
+
+The failure is scientifically valuable. It identifies the
+exact boundary: ACID can reduce search space for similar
+tasks, but cannot discover generic structural abstractions
+that enable cross-family capability expansion.
