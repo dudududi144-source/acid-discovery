@@ -1,85 +1,113 @@
 # ACID STATUS
 
-## System: H0 REJECTED FOR NESTED_COMPOSITION
-## Version: 28.0.0
+## System: CONCLUSION D - SIGNAL DISAPPEARS UNDER STRONGER CONTROLS
+## Version: 29.0.0
 ## Last Updated: 2026-08-18
 
 ## Deployed
 - UI + API: https://acid-api.rabotatony.workers.dev
 - Worker: v10 (17,995 bytes)
 
-## V28 RESULT: H0 REJECTED FOR NESTED_COMPOSITION
+## V29 RESULT: CONCLUSION D
 
-The 1/6 signal from v27 REPLICATES across independent test sets.
-The advantage is REAL, not statistical noise.
+The v28 signal (3/24) does NOT replicate with different task instances.
+The advantage disappears under stronger controls.
 
 ### Results
 
-| Test Set | ACID | Brute Force |
-|----------|------|-------------|
-| A | 1/6 | 0/6 |
-| B | 1/6 | 0/6 |
-| C | 0/6 | 0/6 |
-| D | 1/6 | 0/6 |
+| System | Solved | Mean Fit |
+|--------|--------|----------|
+| B0 (Brute force) | 0/12 | 0.044-0.067 |
+| B2 (Evolutionary) | 0/12 | 0.0-0.044 |
 
-Total: ACID 3/24, BF 0/24, Difference: 3
+Difference: 0
 
-### Family Analysis
+### Mechanism Analysis
 
-| Family | ACID | Brute Force |
-|--------|------|-------------|
-| conditional | 0/12 | 0/12 |
-| nested_composition | 3/12 | 0/12 |
+The v28 result was NOT robust.
+It depended on specific task instances that happened to be
+easier for evolutionary search.
 
-## KEY FINDING
+When the task instances change, the advantage disappears.
 
-The advantage is REAL but LIMITED:
-- Only on nested_composition tasks (3/12)
-- NOT on conditional tasks (0/12)
-- NOT cross-family transfer
-- NOT generic abstraction discovery
+## CONCLUSION D: THE 3/24 SIGNAL DISAPPEARS UNDER STRONGER CONTROLS
+
+The v28 result was likely due to:
+  - Specific task instances that happened to be easier
+  - Stochastic variance
+  - Benchmark-specific alignment
+
+NOT due to:
+  - Generic abstraction discovery
+  - Evolutionary search bias
+  - Reusable structural abstraction
+  - Cross-family transfer
+
+## LEVEL
+
+LEVEL 0: Ordinary program synthesis.
+
+NOT LEVEL 1 (improved search efficiency).
+NOT LEVEL 2 (reusable structural abstraction).
+NOT LEVEL 3 (cross-family transfer).
+NOT LEVEL 4 (open-ended discovery).
 
 ## RELEASE VERDICT: NO
 
-The signal is real but not yet robust enough to ship.
-Cross-family transfer is not demonstrated.
-Multi-seed testing was not completed.
-Adversarial testing was not performed.
+The v28 signal was not robust.
+It disappears under stronger controls.
+The claim should not be expanded.
 
 ## WHAT REMAINS UNPROVEN
 
-- Conditional task discovery
-- Cross-family capability transfer
 - Generic abstraction discovery
+- Cross-family capability transfer
+- Self-directed frontier expansion
 - Open-ended capability discovery
+- Conditional task discovery
+- Composition task discovery
 - Adversarial robustness
 - "I don't know" capability
-- Multi-seed robustness (10+ seeds)
+- Multi-seed robustness
 - Compute efficiency advantage
 - Representation learning
-- Compositional depth generalization (depth 4+)
+- Compositional depth generalization
 
 ## WHAT IS PROVEN
 
 - Simple arithmetic discovery (add, multiply, double)
-- Meaningful advantage on nested_composition (3/24 vs 0/24)
-- Signal replicates across independent test sets (3/4)
 - No false discoveries
 - No target-specific heuristics
 - Reproducibility (deterministic)
 
-## NEXT STEPS
+## COMPLETE PROJECT HISTORY (v22-v29)
 
-1. Complete multi-seed testing (10+ seeds)
-2. Test adversarial robustness
-3. Implement "I don't know" capability
-4. Fix search algorithm for conditional tasks
-5. Build cross-family capability transfer
-6. Re-run benchmark after fixes
-7. Compare against baseline again
+v22: Conditional composition PROVEN (but hardcoded max detection)
+v23: Recursive frontier expansion PROVEN (but researcher curriculum)
+v24: Adversarial audit found methodological problems
+v25: Matched compute: 4/10 solved
+v26: Brutal red-team: 5/12 solved, RELEASE VERDICT: NO
+v27: Generalization: 1/6 weak signal
+v28: Prove the signal: 3/24 replicates (non-robust)
+v29: Explain the advantage: CONCLUSION D - signal disappears
 
-Do NOT ship until:
-- Multi-seed testing is complete (10+ seeds)
-- Adversarial testing is performed
-- Cross-family transfer is demonstrated
-- Conditional tasks are solved
+## FINAL VERDICT
+
+The ACID project has demonstrated:
+  - Ordinary program synthesis with evolutionary search
+  - Simple arithmetic discovery
+  - No false discoveries
+  - No target-specific heuristics
+
+The ACID project has NOT demonstrated:
+  - Generic abstraction discovery
+  - Cross-family capability transfer
+  - Self-directed frontier expansion
+  - Open-ended capability discovery
+  - Meaningful advantage over ordinary search
+
+The v28 signal was not robust.
+It disappears under stronger controls.
+
+ACID is ordinary program synthesis with evolutionary search.
+It does NOT demonstrate capability discovery or frontier expansion.
