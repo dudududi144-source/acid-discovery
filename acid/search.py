@@ -321,15 +321,6 @@ class DiscoveryEngine:
 # SMART DISCOVERY - Added for powerful search
 # ============================================================
 
-def crossover(p1, p2):
-    """Combine two programs by crossover."""
-    cut1 = len(p1.instructions) // 2
-    cut2 = len(p2.instructions) // 2
-    new_instructions = p1.instructions[:cut1] + p2.instructions[cut2:]
-    new_constants = list(set(p1.constants + p2.constants))[:10]
-    return SubstrateProgram(new_instructions[:MAX_PROGRAM_LENGTH], new_constants)
-
-
 def smart_mutate(program, score, rng=None):
     """Smart mutation: adapts strategy based on current score.
     
@@ -414,9 +405,9 @@ def smart_discover(task_fn, inputs, expected, generations=500, pop_size=100, see
             try:
                 result = ex.execute(prog, inputs=inputs)
                 total_evals += 1
-                if result["outputs"] and result["outputs"][0] == expected[0]:
+                if result["outputs"] and result["outputs"] == expected:
                     score = 1.0
-                elif result["outputs"] and abs(result["outputs"][0] - expected[0]) <= 1:
+                elif result["outputs"] and result["outputs"] and len(result["outputs"]) == len(expected) and all(abs(a-b) <= 1 for a,b in zip(result["outputs"], expected)):
                     score = 0.3
                 else:
                     score = 0.0
