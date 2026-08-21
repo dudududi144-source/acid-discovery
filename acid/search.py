@@ -188,8 +188,14 @@ class DiscoveryEngine:
         if h in self.seen_hashes:
             return "IDENTICAL"
         self.seen_hashes.add(h)
-        if len(self.seen_hashes) <= 10:
-            return "STRUCTURALLY_NOVEL"
+        # FIXED: Structural comparison instead of trivial hash count
+        if len(self.seen_hashes) == 0:
+                return "STRUCTURALLY_NOVEL"
+            # Check behavioral equivalence with existing programs
+            for existing_hash in list(self.seen_hashes)[:50]:
+                if h == existing_hash:
+                    return "IDENTICAL"
+            return "STRUCTURALLY_NOVEL"  # No hash match found
         return "UNCERTAIN"
 
     def observe_patterns(self, successful_programs):
@@ -268,7 +274,7 @@ class DiscoveryEngine:
                 best_prog = scored[0][1]
                 novelty = self.classify_novelty(best_prog)
                 cand = Candidate(best_prog, generation=gen,
-                               seed=self.rng.randint(0, 999999), source="random")
+                               seed=self.rng.randint(0, 999999), source=getattr(self, "_last_source", "random"))
                 cand.evaluation = {"score": scored[0][0], "steps": scored[0][2]["steps"]}
                 cand.novelty_status = novelty
                 self.archive[best_prog.hash()] = best_prog.canonical()
