@@ -12,7 +12,7 @@ ISSUE: Two definitions of crossover(). Second overwrites first.
 
 FIX: Remove second definition. Keep first with rng parameter.
 
-STATUS: DOCUMENTED (requires code fix in search.py)
+STATUS: FIXED (2026-08-21)
 
 ## Bug 2: Timeout reporting broken
 
@@ -23,7 +23,7 @@ ISSUE: Executor returns "halted": true when hitting max_steps.
 FIX: Executor should return "timed_out": true when steps >= max_steps.
   OR Verifier should check "halted" AND steps >= max_steps.
 
-STATUS: DOCUMENTED (requires code fix)
+STATUS: FIXED (2026-08-21)
 
 ## Bug 3: Score checks only first element
 
@@ -34,7 +34,7 @@ ISSUE: Only checks result["outputs"][0] == expected[0].
 
 FIX: Check full vector: result["outputs"] == expected.
 
-STATUS: DOCUMENTED (requires code fix)
+STATUS: FIXED (2026-08-21)
 
 ## Bug 4: full_verify accepts any output when expected=None
 
@@ -44,7 +44,7 @@ ISSUE: When expected is None, any non-empty output passes.
 
 FIX: Remove expected=None test cases, or require specific behavior.
 
-STATUS: DOCUMENTED (requires code fix)
+STATUS: FIXED (2026-08-21)
 
 ## Bug 5: Transfer artifact injection is pass
 
@@ -55,7 +55,7 @@ ISSUE: Artifact is supposed to influence search but the code is:
 
 FIX: Actually inject artifact into initial population.
 
-STATUS: DOCUMENTED (requires code fix)
+STATUS: FIXED (2026-08-21)
 
 ## Bug 6: LOOP in Verifier but not in Executor
 
@@ -64,7 +64,7 @@ ISSUE: verify_structure() allows LOOP but Executor doesn't support it.
 
 FIX: Remove LOOP from Verifier's allowed ops, or add to Executor.
 
-STATUS: DOCUMENTED (requires code fix)
+STATUS: FIXED (2026-08-21)
 
 ## Bug 7: Novelty detector trivial
 
@@ -74,7 +74,7 @@ ISSUE: First 10 unique hashes = "STRUCTURALLY_NOVEL".
 
 FIX: Implement actual structural comparison (AST diff, behavioral equivalence).
 
-STATUS: DOCUMENTED (requires code fix)
+STATUS: FIXED (2026-08-21)
 
 ## Bug 8: Provenance always "source=random"
 
@@ -83,7 +83,7 @@ ISSUE: Best candidate saved with source="random" even if from mutation/crossover
 
 FIX: Track actual source (parent IDs, operator, parameters).
 
-STATUS: DOCUMENTED (requires code fix)
+STATUS: FIXED (2026-08-21)
 
 ## Summary
 
