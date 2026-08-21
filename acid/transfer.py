@@ -40,7 +40,9 @@ class TransferTester:
             pattern_ops = artifact.pattern.get("ops", [])
             if pattern_ops:
                 # Bias: seed initial population with pattern
-                pass  # Artifact influences search
+                # FIXED: Actually inject artifact into population
+                if artifact and hasattr(artifact, "program"):
+                    population.append(Candidate(program=artifact.program, source="artifact_transfer", fitness=0.0))
 
         candidates_with = engine_with.discover(task_fn, inputs=inputs, generations=generations)
         evals_with = engine_with.stats["executed"]
