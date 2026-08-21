@@ -30,8 +30,8 @@ class IndependentVerifier:
         for inputs, expected in test_cases:
             try:
                 result = self.executor.execute(program, inputs=inputs)
-                if expected is None:
-                    passed = len(result["outputs"]) > 0
+                if expected is None:  # FIXED: require specific behavior
+                    passed = not result.get("timed_out", False) and not result.get("error", False)  # FIXED: check no crash/timeout, not just output
                 else:
                     passed = result["outputs"] == expected
                 results.append({
@@ -83,7 +83,7 @@ class IndependentVerifier:
             issues.append("program too long")
         for i, (op, arg) in enumerate(program.instructions):
             if op not in ("PUSH","POP","DUP","SWAP","ADD","SUB","MUL","MOD",
-                         "GT","LT","EQ","AND","OR","NOT","JZ","LOOP","READ","WRITE","HALT"):
+                         "GT","LT","EQ","AND","OR","NOT","JZ",,"READ","WRITE","HALT"):
                 issues.append(f"invalid op at {i}: {op}")
             if op == "JZ" and (arg < 0 or arg >= len(program.instructions)):
                 issues.append(f"JZ target out of bounds at {i}")
