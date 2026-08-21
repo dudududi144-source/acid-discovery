@@ -138,6 +138,7 @@ class Executor:
             pc += 1
 
         return {"outputs": outputs, "steps": steps, "halted": pc >= n or steps >= self.max_steps}
+        "timed_out": steps >= self.max_steps,
 
 
 def validate_substrate():
